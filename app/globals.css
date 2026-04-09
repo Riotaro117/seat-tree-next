@@ -1,26 +1,19 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+/* アプリ特有のテーマの設定 */
+@theme {
+  /* 特有のクラスの設定 */
+  --font-sans: 'Zen Maru Gothic' sans-serif;
+  --font-serif: 'Kiwi Maru', serif;
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  --color-wood-50: #fbf7f1;
+  --color-wood-100: #f5efe4;
+  --color-wood-200: #eaddc5;
+  --color-wood-300: #dec29a;
+  --color-wood-400: #d2a472;
+  --color-wood-500: #c68853;
+  --color-wood-600: #bb7043;
+  --color-wood-700: #9a5638;
+  --color-wood-800: #7f4735;
+  --color-wood-900: #663a2e;
 }
