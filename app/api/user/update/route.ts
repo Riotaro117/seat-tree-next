@@ -1,5 +1,5 @@
 import { supabase } from '@/lib/supabase';
-import { User } from '@supabase/supabase-js';
+import type { User } from '@supabase/supabase-js';
 
 type UpdateUserResult = {
   user: User;
@@ -20,7 +20,7 @@ const updateUser = async (
       name,
     },
   });
-  if (error) throw new Error('ユーザー情報の更新に失敗しました。');
+  if (error) throw new Error('ユーザー情報の更新に失敗しました。', { cause: error });
   if (!data.user) throw new Error('ユーザー情報が取得できませんでした。');
   return {
     user: data.user,

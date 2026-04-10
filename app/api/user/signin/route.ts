@@ -1,5 +1,5 @@
 import { supabase } from '@/lib/supabase';
-import { User } from '@supabase/supabase-js';
+import type { User } from '@supabase/supabase-js';
 
 type SigninResult = User & { userName: string | null };
 
@@ -11,15 +11,20 @@ const signin = async (email: string, password: string): Promise<SigninResult> =>
   if (error) {
     switch (error.message) {
       case 'Invalid login credentials':
-        throw new Error('メールアドレスまたはパスワードが間違っています。');
+        throw new Error('メールアドレスまたはパスワードが間違っています。', { cause: error });
       case 'Email not confirmed':
         throw new Error(
           'メールアドレスの認証が完了していません。届いたメールのリンクを確認して下さい。',
+          { cause: error },
         );
       case 'Email rate limit exceeded':
-        throw new Error('試行回数が多すぎます。しばらく時間をおいてからさいどお試し下さい。');
+        throw new Error('試行回数が多すぎます。しばらく時間をおいてからさいどお試し下さい。', {
+          cause: error,
+        });
       default:
-        throw new Error('ログインに失敗しました。時間をおいて再度お試しください。');
+        throw new Error('ログインに失敗しました。時間をおいて再度お試しください。', {
+          cause: error,
+        });
     }
   }
   if (!data.user) throw new Error('ユーザー情報が取得できませんでした');

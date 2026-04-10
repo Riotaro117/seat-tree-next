@@ -1,5 +1,5 @@
 import { supabase } from '@/lib/supabase';
-import { Session, User } from '@supabase/supabase-js';
+import type { Session, User } from '@supabase/supabase-js';
 
 type SigninAnonymously = {
   user: User;
@@ -7,7 +7,7 @@ type SigninAnonymously = {
 };
 const signinAnonymously = async (): Promise<SigninAnonymously> => {
   const { data, error } = await supabase.auth.signInAnonymously();
-  if (error) throw new Error('仮ユーザーの作成に失敗しました。');
+  if (error) throw new Error('仮ユーザーの作成に失敗しました。', { cause: error });
   if (!data.user) throw new Error('ユーザー情報が取得できませんでした。');
   return {
     user: data.user,
