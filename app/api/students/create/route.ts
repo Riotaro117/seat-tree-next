@@ -2,7 +2,7 @@ import { formatStudent } from '@/lib/formatStudent.type';
 import { supabase } from '@/lib/supabase';
 import type { Student } from '@/lib/type';
 
-const createStudent = async (userId: string, student: Omit<Student, 'id'>) => {
+const createStudent = async (userId: string, student: Omit<Student, 'id'>): Promise<Student> => {
   if (!userId) throw new Error('ユーザーIDが指定されていません。');
 
   // 作成したときには、Jsonデータが混じっているので注意！
