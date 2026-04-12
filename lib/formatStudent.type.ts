@@ -1,4 +1,5 @@
 import type { Database } from './database.types';
+import type{ Student } from './type';
 
 const isGender = (value: string): value is 'boy' | 'girl' | 'other' =>
   value === 'boy' || value === 'girl' || value === 'other';
@@ -11,7 +12,7 @@ const toStringArray = (value: unknown): string[] => {
 type StudentRow = Database['public']['Tables']['students']['Row'];
 
 // DB層とアプリ層のキー名（needs_front_row）→（needsFrontRow）へ変換
-export const formatStudent = (data: StudentRow) => {
+export const formatStudent = (data: StudentRow): Student => {
   return {
     id: data.id,
     name: data.name,
