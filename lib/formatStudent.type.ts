@@ -1,5 +1,5 @@
 import type { Database } from './database.types';
-import type{ Student } from './type';
+import type { Student } from './type';
 
 const isGender = (value: string): value is 'boy' | 'girl' | 'other' =>
   value === 'boy' || value === 'girl' || value === 'other';
