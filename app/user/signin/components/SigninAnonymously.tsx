@@ -1,9 +1,9 @@
 'use client';
 import signinAnonymously from '@/app/api/user/signinAnonymously/route';
-import Button from '@/app/components/ui/Button';
 import { useAuthState } from '@/app/providers/AuthProvider';
+import Button from './Button';
 
-const SigninAnonymouslyButton = () => {
+const SigninAnonymously = () => {
   const { isLoading } = useAuthState();
 
   const handleSigninAnonymously = async () => {
@@ -21,4 +21,4 @@ const SigninAnonymouslyButton = () => {
   );
 };
 
-export default SigninAnonymouslyButton;
+export default SigninAnonymously;

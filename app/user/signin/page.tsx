@@ -1,9 +1,9 @@
 import { ExternalLink } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
-import SigninForm from './SigninForm';
-import SigninAnonymouslyButton from './SigninAnonymouslyButton';
 import { VERSION } from '@/app/utils/constants';
+import SigninForm from './components/SigninForm';
+import SigninAnonymously from './components/SigninAnonymously';
 
 const Signin = () => {
   return (
@@ -29,7 +29,7 @@ const Signin = () => {
         </Link>
 
         <SigninForm />
-        <SigninAnonymouslyButton />
+        <SigninAnonymously />
 
         <p className="text-wood-500 mt-8 text-sm">
           個人情報は、通信の暗号化とアクセス制御により
