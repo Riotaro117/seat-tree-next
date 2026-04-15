@@ -1,5 +1,5 @@
 import { User } from '@supabase/supabase-js';
-import { supabase } from './supabase';
+import { createClient } from './supabase/client';
 
 // 認証の監視イベント
 export const subscribeToAuthStateChange = (
@@ -7,7 +7,7 @@ export const subscribeToAuthStateChange = (
 ): (() => void) => {
   const {
     data: { subscription },
-  } = supabase.auth.onAuthStateChange((_event, session) => {
+  } = createClient().auth.onAuthStateChange((_event, session) => {
     onChange(session?.user ?? null);
   });
 
