@@ -1,11 +1,11 @@
 import { formatStudent } from '@/lib/formatStudent.type';
-import { supabase } from '@/lib/supabase';
+import { createClient } from '@/lib/supabase/client';
 import type { Student } from '@/lib/type';
 
 const fetchStudents = async (userId: string): Promise<Student[]> => {
   if (!userId) throw new Error('ユーザーIDが指定されていません。');
 
-  const { data, error } = await supabase
+  const { data, error } = await createClient()
     .from('students')
     .select('*')
     .eq('user_id', userId)

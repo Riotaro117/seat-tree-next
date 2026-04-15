@@ -1,10 +1,10 @@
-import { supabase } from '@/lib/supabase';
+import { createClient } from '@/lib/supabase/client';
 import type { User } from '@supabase/supabase-js';
 
 type SigninResult = User & { userName: string | null };
 
 const signin = async (email: string, password: string): Promise<SigninResult> => {
-  const { data, error } = await supabase.auth.signInWithPassword({
+  const { data, error } = await createClient().auth.signInWithPassword({
     email,
     password,
   });

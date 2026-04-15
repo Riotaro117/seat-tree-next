@@ -1,10 +1,10 @@
-import { supabase } from '@/lib/supabase';
+import { createClient } from '@/lib/supabase/client';
 import type { ClassroomLayout, Seat, Student } from '@/lib/type';
 
 const fetchLayouts = async (userId: string): Promise<ClassroomLayout[]> => {
   if (!userId) throw new Error('ユーザーIDが指定されていません。');
 
-  const { data, error } = await supabase
+  const { data, error } = await createClient()
     .from('layouts')
     .select('*')
     .eq('user_id', userId)

@@ -1,4 +1,4 @@
-import { supabase } from '@/lib/supabase';
+import { createClient } from '@/lib/supabase/client';
 import type { User } from '@supabase/supabase-js';
 
 type UpdateUserResult = {
@@ -13,7 +13,7 @@ const updateUser = async (
   if (!email || !password || !name)
     throw new Error('メールアドレスとパスワードとユーザーネームは必須です。');
 
-  const { data, error } = await supabase.auth.updateUser({
+  const { data, error } = await createClient().auth.updateUser({
     email,
     password,
     data: {

@@ -1,4 +1,4 @@
-import { supabase } from '@/lib/supabase';
+import { createClient } from '@/lib/supabase/client';
 import type { ClassroomLayout, Seat, Student } from '@/lib/type';
 
 const createLayout = async (
@@ -6,7 +6,7 @@ const createLayout = async (
   layout: Omit<ClassroomLayout, 'id'>,
 ): Promise<ClassroomLayout> => {
   if (!userId) throw new Error('ユーザーIDが指定されていません。');
-  const { data, error } = await supabase
+  const { data, error } = await createClient()
     .from('layouts')
     .insert({
       user_id: userId, // 作成者

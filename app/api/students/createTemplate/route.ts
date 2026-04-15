@@ -1,4 +1,4 @@
-import { supabase } from '@/lib/supabase';
+import { createClient } from '@/lib/supabase/client';
 
 export const insertAllStudents = async (userId: string): Promise<void> => {
   if (!userId) throw new Error('ユーザーIDが指定されていません。');
@@ -217,14 +217,14 @@ export const insertAllStudents = async (userId: string): Promise<void> => {
   ];
 
   // 生徒数の確認をしたのちに作成する
-  const { count, error: countError } = await supabase
+  const { count, error: countError } = await createClient()
     .from('students')
     .select('*', { count: 'exact', head: true })
     .eq('user_id', userId);
   if (countError) throw new Error('生徒数の確認に失敗しました。', { cause: countError });
   if (count && count > 0) return;
 
-  const { error: insertError } = await supabase.from('students').insert(templateStudents);
+  const { error: insertError } = await createClient().from('students').insert(templateStudents);
   if (insertError)
     throw new Error('テンプレートの生徒を作成することに失敗しました。', { cause: insertError });
 };

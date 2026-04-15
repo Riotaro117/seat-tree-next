@@ -1,10 +1,10 @@
-import { supabase } from '@/lib/supabase';
+import { createClient } from '@/lib/supabase/client';
 import type { Student } from '@/lib/type';
 
 const deleteStudent = async (userId: string, student: Student): Promise<void> => {
   if (!userId) throw new Error('ユーザーIDが指定されていません。');
 
-  const { error } = await supabase
+  const { error } = await createClient()
     .from('students')
     .delete()
     .eq('id', student.id)

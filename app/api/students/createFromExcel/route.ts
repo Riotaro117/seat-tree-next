@@ -1,4 +1,4 @@
-import { supabase } from '@/lib/supabase';
+import { createClient } from '@/lib/supabase/client';
 import type { Student } from '@/lib/type';
 
 const insertExcelFile = async (studentToInsert: Student[], userId: string): Promise<void> => {
@@ -16,7 +16,7 @@ const insertExcelFile = async (studentToInsert: Student[], userId: string): Prom
 
   if (studentRow.length === 0) throw new Error('追加できる生徒がいません。');
 
-  const { error } = await supabase.from('students').insert(studentRow);
+  const { error } = await createClient().from('students').insert(studentRow);
   if (error) throw new Error('エクセルファイルの取り込みに失敗しました。', { cause: error });
 };
 

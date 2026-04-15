@@ -1,10 +1,10 @@
-import { supabase } from '@/lib/supabase';
+import { createClient } from '@/lib/supabase/client';
 
 const deleteLayout = async (userId: string, id: string): Promise<void> => {
   if (!userId) throw new Error('ユーザーIDが指定されていません。');
   if (!id) throw new Error('教室のレイアウトにIDが指定されていません。');
 
-  const { error } = await supabase
+  const { error } = await createClient()
     .from('layouts')
     .delete()
     .eq('user_id', userId)
