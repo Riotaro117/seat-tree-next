@@ -6,9 +6,11 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 const Header = () => {
-  const { user } = useAuthState();
+  const { user, isLoading } = useAuthState();
 
-  if (!user) throw new Error('ユーザーが存在しません。');
+  // クライアントサイドのuseState（ローディング）のため
+  if (isLoading) return null;
+  if (!user) return null;
 
   const handleSignout = async () => {
     try {
