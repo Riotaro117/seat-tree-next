@@ -1,17 +1,14 @@
-import { NextResponse } from 'next/server';
-import getCurrentUser from './app/api/user/getCurrentUser/route';
+import { NextRequest } from 'next/server';
+import { updateSession } from './lib/supabase/proxy';
 
 // リクエストが完了する目にプロキシを作成し、サーバー上でコードを実行
-export const proxy = async (request: NextResponse) => {
-  const user = await getCurrentUser();
-
-  if (!user) {
-    return NextResponse.redirect(new URL('signin', request.url));
-  }
-
-  return NextResponse.next();
+export const proxy = async (request: NextRequest) => {
+  return await updateSession(request);
 };
 
 export const config = {
-  matcher: ['/'],
+  matcher: [
+    // /user/signin 自体はproxyを通さない（無限リダイレクト防止）
+    '/((?!_next/static|_next/image|favicon.ico|user/signin|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)',
+  ],
 };
