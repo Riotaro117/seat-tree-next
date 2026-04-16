@@ -1,6 +1,6 @@
 import { createClient } from '@/lib/supabase/client';
 
-export const insertAllStudents = async (userId: string): Promise<void> => {
+export const insertTemplateStudents = async (userId: string): Promise<void> => {
   if (!userId) throw new Error('ユーザーIDが指定されていません。');
 
   const templateStudents = [
