@@ -4,9 +4,11 @@ import { useAuthState } from '@/app/providers/AuthProvider';
 import { LogOut } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 const Header = () => {
   const { user, isLoading } = useAuthState();
+  const router = useRouter();
 
   // クライアントサイドのuseState（ローディング）のため
   if (isLoading) return null;
@@ -15,6 +17,7 @@ const Header = () => {
   const handleSignout = async () => {
     try {
       await signout();
+      router.replace('/user/signin');
     } catch (error) {
       alert(error instanceof Error ? error.message : 'ログアウトに失敗しました。');
     }
