@@ -16,7 +16,7 @@ const SigninForm = () => {
     e.preventDefault();
     try {
       await signin(email, password);
-      router.push('/');
+      router.replace('/');
     } catch (error) {
       alert(error instanceof Error ? error.message : 'ログインに失敗しました。');
     }
