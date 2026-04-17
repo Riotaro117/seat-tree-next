@@ -2,7 +2,7 @@ import { formatStudent } from '@/lib/formatStudent.type';
 import { createClient } from '@/lib/supabase/client';
 import type { Student } from '@/lib/type';
 
-const updateStudent = async (student: Student, userId: string): Promise<Student> => {
+const updateStudent = async (userId: string, student: Student): Promise<Student> => {
   if (!userId) throw new Error('ユーザーIDが指定されていません。');
 
   const { data, error } = await createClient()
