@@ -1,8 +1,8 @@
 'use client';
 import signinAnonymously from '@/app/api/user/signinAnonymously/route';
 import { useAuthState } from '@/app/providers/AuthProvider';
-import Button from './Button';
 import { useRouter } from 'next/navigation';
+import Button from '../../components/Button';
 
 const SigninAnonymously = () => {
   const { isLoading } = useAuthState();
