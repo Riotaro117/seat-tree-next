@@ -8,17 +8,12 @@ import fetchLayouts from '../api/layouts/readAll/route';
 import { useStudentsStore } from '../store/useStudentsStore';
 import { useLayoutsStore } from '../store/useLayoutsStore';
 import { useSeatsStore } from '../store/useSeatsStore';
-import { useTotalSeatsStore } from '../store/useTotalSeatsStore';
-import type { Seat } from '@/lib/type';
-import { useColsStore } from '../store/useColsStore';
 
 export const DataProvider = ({ children }: { children: React.ReactNode }) => {
   const { isLoading, user } = useAuthState();
   const { setStudents } = useStudentsStore();
   const { setLayouts } = useLayoutsStore();
-  const { seats, setSeats } = useSeatsStore();
-  const { setTotalSeats } = useTotalSeatsStore();
-  const { cols, setCols } = useColsStore();
+  const { seats, handleResizeSeats,handleResizeCols } = useSeatsStore();
   const hadInsertedTemplate = useRef(false); // 再レンダリングされても値が変わらないし、変更しても再レンダリングがトリガーされない
 
   useEffect(() => {
@@ -26,36 +21,6 @@ export const DataProvider = ({ children }: { children: React.ReactNode }) => {
       fetchData();
     }
   }, [isLoading, user?.id]);
-
-  // 総座席数が変わったときに教室の座席配置を作り直す関数
-  const handleResizeSeats = (size: number) => {
-    // 総座席数の更新
-    setTotalSeats(size);
-    // 引数のsizeを元に新しい座席データを作成する
-    // 引数のsizeを配列のようなオブジェクトlength:sizeとして配列にしている
-    // 使わないvalueは_で示している elementはundefinedなので存在しない
-    const newSeats: Seat[] = Array.from({ length: size }, (_, i) => ({
-      id: `seat-${Math.floor(i / cols)}-${i % cols}`,
-      row: Math.floor(i / cols),
-      col: i % cols,
-      studentId: null, // 初めは誰も座っていない
-      isDisabled: false,
-    }));
-    // 座席情報の更新
-    setSeats(newSeats);
-  };
-
-  const handleResizeCols = (size: number, totalSeats: number) => {
-    setCols(size);
-    const newSeats: Seat[] = Array.from({ length: totalSeats }, (_, i) => ({
-      id: `seat-${Math.floor(i / size)}-${i % size}`,
-      row: Math.floor(i / size),
-      col: i % size,
-      studentId: null,
-      isDisabled: false,
-    }));
-    setSeats(newSeats);
-  };
 
   // supabaseのデータ取得
   const fetchData = async () => {
