@@ -30,7 +30,7 @@ const MainContents = () => {
   const [isPrinted, setIsPrinted] = useState(false);
 
   // 後で、メガネマークなどが消えるように設定しておくこと
-  const printCurrentLayout = useReactToPrint({
+  const handlePrintCurrentLayout = useReactToPrint({
     contentRef,
     onBeforePrint: async () => {
       setIsPrinted(true);
@@ -74,7 +74,7 @@ const MainContents = () => {
   };
 
   // 教室配置保存ボタン
-  const saveCurrentLayout = async () => {
+  const handleSaveCurrentLayout = async () => {
     if (!user) return;
     if (user.is_anonymous) {
       const ok = window.confirm('この機能はユーザー登録者限定です。ユーザー登録しますか？');
@@ -111,9 +111,9 @@ const MainContents = () => {
     <main className="max-w-7xl mx-auto px-4 pt-6">
       <>
         <TopButtons
-          onRandomize={handleRandomize}
-          onSaveCurrentLayout={saveCurrentLayout}
-          onPrintCurrentLayout={printCurrentLayout}
+          handleRandomize={handleRandomize}
+          handleSaveCurrentLayout={handleSaveCurrentLayout}
+          handlePrintCurrentLayout={handlePrintCurrentLayout}
         />
 
         <ClassroomSeats contentRef={contentRef} isPrinted={isPrinted} />
