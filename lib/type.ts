@@ -33,5 +33,3 @@ export type ClassroomLayout = {
   seats: Seat[]; // 保存した座席情報
   students: Student[]; // 保存した生徒情報
 };
-
-export type ViewMode = 'classroom' | 'students' | 'history' | 'settings';
