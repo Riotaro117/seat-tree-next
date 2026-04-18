@@ -6,14 +6,12 @@ import type { UseReactToPrintFn } from 'react-to-print';
 
 interface TopButtonsProps {
   onRandomize: () => void;
-  onTransitionSetting: () => void;
   onSaveCurrentLayout: () => Promise<void>;
   onPrintCurrentLayout: UseReactToPrintFn;
 }
 
 const TopButtons: React.FC<TopButtonsProps> = ({
   onRandomize,
-  onTransitionSetting,
   onSaveCurrentLayout,
   onPrintCurrentLayout,
 }) => {
@@ -28,16 +26,15 @@ const TopButtons: React.FC<TopButtonsProps> = ({
         <Shuffle className="w-5 h-5" />
         席替え実行
       </button>
-      <button
+      <Link
+        href={'/layout/setting'}
         className="cursor-pointer items-center justify-center gap-2 px-4 py-2 rounded-xl font-bold transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed shadow-sm active:scale-95 bg-white text-wood-800 border-2 border-wood-200 hover:border-wood-400 hover:bg-wood-50 shadow-md"
-        onClick={onTransitionSetting}
-        disabled={isLoading}
       >
         <Settings className="w-5 h-5" />
         座席設定
-      </button>
+      </Link>
       <Link
-        href={'/students/studentsRoster'}
+        href={'/students/students-roster'}
         className="cursor-pointer items-center justify-center gap-2 px-4 py-2 rounded-xl font-bold transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed shadow-sm active:scale-95 bg-white text-wood-800 border-2 border-wood-200 hover:border-wood-400 hover:bg-wood-50 shadow-md"
       >
         <Users className="w-5 h-5" />
