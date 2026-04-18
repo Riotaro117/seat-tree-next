@@ -26,10 +26,7 @@ const Header = () => {
   return (
     <header className="bg-white border-b border-wood-200 sticky top-0 z-30 shadow-sm">
       <div className="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
-        <div
-          className="flex items-center gap-2 cursor-pointer"
-          // onClick={() => setViewMode('classroom')}
-        >
+        <div className="flex items-center gap-2 cursor-pointer">
           <div className="w-15 h-15">
             <Image
               src={'/icon_seat_tree.webp'}
