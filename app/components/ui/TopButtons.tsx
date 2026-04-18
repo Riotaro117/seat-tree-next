@@ -27,7 +27,7 @@ const TopButtons: React.FC<TopButtonsProps> = ({
         席替え実行
       </button>
       <Link
-        href={'/layout/setting'}
+        href={'/seat-layouts/settings'}
         className="cursor-pointer items-center justify-center gap-2 px-4 py-2 rounded-xl font-bold transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed shadow-sm active:scale-95 bg-white text-wood-800 border-2 border-wood-200 hover:border-wood-400 hover:bg-wood-50 shadow-md"
       >
         <Settings className="w-5 h-5" />
