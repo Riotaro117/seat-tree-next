@@ -11,9 +11,10 @@ import { useFrontRowLimitStore } from '@/app/store/useFrontRowLimitStore';
 
 type ClassroomSeatsProps = {
   contentRef: RefObject<HTMLDivElement | null>;
+  isPrinted: boolean;
 };
 
-const ClassroomSeats: React.FC<ClassroomSeatsProps> = ({ contentRef }) => {
+const ClassroomSeats: React.FC<ClassroomSeatsProps> = ({ contentRef, isPrinted }) => {
   const { seats, setSeats } = useSeatsStore();
   const { students } = useStudentsStore();
   const { cols } = useColsStore();
@@ -175,7 +176,7 @@ const ClassroomSeats: React.FC<ClassroomSeatsProps> = ({ contentRef }) => {
                 <>
                   <div className="flex items-center gap-1 mb-1">
                     {/* 前列配慮のある生徒の場合のスタイル */}
-                    {student.needsFrontRow && (
+                    {student.needsFrontRow && !isPrinted && (
                       <Glasses
                         className={`w-3 h-3 ${hasConflict ? 'text-red-500' : 'text-wood-700'}`}
                       />
