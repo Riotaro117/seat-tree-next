@@ -9,6 +9,6 @@ export const proxy = async (request: NextRequest) => {
 export const config = {
   matcher: [
     // /user/signin 自体はproxyを通さない（無限リダイレクト防止）
-    '/((?!_next/static|_next/image|favicon.ico|user/signin|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)',
+    '/((?!_next/static|_next/image|favicon.ico|user/signin|update-history|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)',
   ],
 };
