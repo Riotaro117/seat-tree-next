@@ -13,6 +13,7 @@ import { useReactToPrint } from 'react-to-print';
 import TopButtons from '../ui/TopButtons';
 import ClassroomSeats from '../ui/ClassroomSeats';
 import { useFrontRowLimitStore } from '@/app/store/useFrontRowLimitStore';
+import { useRouter } from 'next/navigation';
 
 const MainContents = () => {
   const { cols } = useColsStore();
@@ -22,6 +23,7 @@ const MainContents = () => {
   const { totalSeats } = useTotalSeatsStore();
   const { user } = useAuthState();
   const { frontRowLimit } = useFrontRowLimitStore();
+  const router = useRouter();
 
   // 印刷ボタン
   const contentRef = useRef<HTMLDivElement>(null);
@@ -77,7 +79,7 @@ const MainContents = () => {
     if (user.is_anonymous) {
       const ok = window.confirm('この機能はユーザー登録者限定です。ユーザー登録しますか？');
       if (ok) {
-        // navigate('/updateUser', { replace: true });
+        router.push('/user/update');
       }
       return;
     }
@@ -105,26 +107,16 @@ const MainContents = () => {
     }
   };
 
-  // 設定画面へ遷移
-  const transitionSetting = () => {
-    if (window.confirm('現在の配置は失われます。座席設定画面に遷移しますか？')) {
-      // onResizeSeats(30);
-      // onResizeCols(6, 30);
-      // setViewMode('settings');
-    }
-  };
-
   return (
     <main className="max-w-7xl mx-auto px-4 pt-6">
       <>
         <TopButtons
           onRandomize={handleRandomize}
-          onTransitionSetting={transitionSetting}
           onSaveCurrentLayout={saveCurrentLayout}
           onPrintCurrentLayout={printCurrentLayout}
         />
 
-        <ClassroomSeats contentRef={contentRef} />
+        <ClassroomSeats contentRef={contentRef} isPrinted={isPrinted} />
       </>
     </main>
   );
