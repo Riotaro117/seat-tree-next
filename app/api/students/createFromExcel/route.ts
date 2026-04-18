@@ -1,7 +1,9 @@
 import { createClient } from '@/lib/supabase/client';
-import type { Student } from '@/lib/type';
 
-const insertExcelFile = async (studentToInsert: Student[], userId: string): Promise<void> => {
+const insertExcelFile = async (
+  userId: string,
+  studentToInsert: { name: string }[],
+): Promise<void> => {
   if (!userId) throw new Error('ユーザーIDが指定されていません。');
 
   const studentRow = studentToInsert
