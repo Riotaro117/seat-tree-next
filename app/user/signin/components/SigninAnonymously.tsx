@@ -2,14 +2,16 @@
 import signinAnonymously from '@/app/api/user/signinAnonymously/route';
 import { useAuthState } from '@/app/providers/AuthProvider';
 import Button from './Button';
+import { useRouter } from 'next/navigation';
 
 const SigninAnonymously = () => {
   const { isLoading } = useAuthState();
+  const router = useRouter();
 
   const handleSigninAnonymously = async () => {
     try {
       await signinAnonymously();
-      console.log('仮ログイン成功');
+      router.push('/');
     } catch (error) {
       alert(error instanceof Error ? error.message : '仮ログインに失敗しました。');
     }
