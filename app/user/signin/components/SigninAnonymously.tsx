@@ -17,7 +17,7 @@ const SigninAnonymously = () => {
     }
   };
   return (
-    <Button onClick={handleSigninAnonymously} isLoading={isLoading} color="green">
+    <Button onClick={handleSigninAnonymously} isLoading={isLoading} color="brown">
       今すぐ始める！
     </Button>
   );
