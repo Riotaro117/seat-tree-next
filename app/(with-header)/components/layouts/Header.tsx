@@ -51,7 +51,7 @@ const Header = () => {
               ) : (
                 <Link
                   href={'/user/update'}
-                  className="cursor-pointer px-1 bg-red-400 rounded-lg text-sm font-bold font-serif text-center hover:bg-red-600"
+                  className="cursor-pointer px-1 bg-red-400 rounded-lg text-sm font-bold font-serif text-center hover:bg-red-600 sm:px-10"
                 >
                   ユーザー登録はこちらから！！
                 </Link>
