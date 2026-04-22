@@ -1,4 +1,5 @@
-"use client"
+'use client';
+import BlackBoard from '@/app/(with-header)/components/ui/BlackBoard';
 import { useColsStore } from '@/app/store/useColsStore';
 import { useSeatsStore } from '@/app/store/useSeatsStore';
 import { X } from 'lucide-react';
@@ -14,10 +15,7 @@ const ClassroomLayout = () => {
   };
   return (
     <div className="flex flex-col items-center w-full">
-      <div className="bg-lime-600 text-white px-12 py-2 rounded-b-xl shadow-md mb-8 w-2/3 text-center border-b-4 border-lime-800">
-        <h3 className="font-serif tracking-widest text-lg opacity-90">黒板</h3>
-      </div>
-
+      <BlackBoard />
       {/* 座席をグリッドレイアウトで配置していく styleは動的にクラスを得る書き方 */}
       <div
         className="grid gap-4 w-full max-w-5xl mx-auto p-4 justify-center"
