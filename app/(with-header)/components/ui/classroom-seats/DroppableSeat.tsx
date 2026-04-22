@@ -1,3 +1,4 @@
+"use client"
 import type { SeatCardProps } from '@/lib/type';
 import { useDroppable } from '@dnd-kit/react';
 
