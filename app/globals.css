@@ -17,3 +17,20 @@
   --color-wood-800: #7f4735;
   --color-wood-900: #663a2e;
 }
+
+@theme {
+  --animate-shake: shake 0.4s ease-in-out infinite;
+}
+
+@keyframes shake {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  25% {
+    transform: translateY(-5px);
+  }
+  75% {
+    transform: translateY(5px);
+  }
+}
