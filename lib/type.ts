@@ -33,3 +33,11 @@ export type ClassroomLayout = {
   seats: Seat[]; // 保存した座席情報
   students: Student[]; // 保存した生徒情報
 };
+
+// ドラッグ可能な座席カードコンポーネント
+export type SeatCardProps = {
+  seat: Seat;
+  student: Student | null;
+  hasConflict: boolean;
+  isPrinted: boolean;
+};
