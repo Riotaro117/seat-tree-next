@@ -11,6 +11,7 @@ import DroppableSeat from './DroppableSeat';
 import DraggableSeatCard from './DraggableSeatCard';
 import OverlayCard from './OverlayCard';
 import { DragDropProvider, DragOverlay } from '@dnd-kit/react';
+import BlackBoard from '../BlackBoard';
 
 type ClassroomSeatsProps = {
   contentRef: RefObject<HTMLDivElement | null>;
@@ -26,8 +27,6 @@ const ClassroomSeats: React.FC<ClassroomSeatsProps> = ({ contentRef, isPrinted }
 
   // 現在ドラッグ中の座席id
   const [activeSeatId, setActiveSeatId] = useState<string | null>(null);
-  // ドロップ候補としてホバー中の座席id
-  // const [overSeatId, setOverSeatId] = useState<string | null>(null);
 
   const studentMap = new Map<string, Student>(students.map((s) => [s.id, s]));
   const seatMap = new Map(seats.map((s) => [`${s.row}-${s.col}`, s]));
@@ -90,10 +89,7 @@ const ClassroomSeats: React.FC<ClassroomSeatsProps> = ({ contentRef, isPrinted }
       }}
     >
       <div ref={contentRef} className="flex flex-col items-center w-full">
-        <div className="bg-lime-600 text-white px-12 py-2 rounded-b-xl shadow-md mb-8 w-2/3 text-center border-b-4 border-lime-800">
-          <h3 className="font-serif tracking-widest text-lg opacity-90">黒板</h3>
-        </div>
-
+        <BlackBoard />
         <div
           className="grid gap-4 w-full max-w-5xl mx-auto p-4 justify-center"
           style={{ gridTemplateColumns: `repeat(${cols}, minmax(0, 1fr))` }}
@@ -123,7 +119,7 @@ const ClassroomSeats: React.FC<ClassroomSeatsProps> = ({ contentRef, isPrinted }
       </div>
       {/* ドラッグ中に指に追従するカード */}
       <DragOverlay>
-        {activeStudent ? <OverlayCard student={activeStudent} /> : <OverlayCard student={null} />}
+        {activeStudent ? <OverlayCard student={activeStudent}  /> : <OverlayCard student={null} />}
       </DragOverlay>
     </DragDropProvider>
   );
