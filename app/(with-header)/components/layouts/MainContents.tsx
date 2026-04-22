@@ -11,9 +11,9 @@ import type { ClassroomLayout } from '@/lib/type';
 import { useRef, useState } from 'react';
 import { useReactToPrint } from 'react-to-print';
 import TopButtons from '../ui/TopButtons';
-import ClassroomSeats from '../ui/ClassroomSeats';
 import { useFrontRowLimitStore } from '@/app/store/useFrontRowLimitStore';
 import { useRouter } from 'next/navigation';
+import ClassroomSeats from '../ui/classroom-seats/ClassroomSeats';
 
 const MainContents = () => {
   const { cols } = useColsStore();
