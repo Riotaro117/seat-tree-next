@@ -7,13 +7,13 @@ export const getStudentDeskStyle = (
 ) => {
   if (seat?.isDisabled) {
     return {
-      deskColor: 'bg-wood-100 border-wood-300 border-dashed cursor-not-allowed',
-      nameColor: 'text-wood-300',
+      deskColor: 'bg-stone-200 border-stone-300 cursor-not-allowed',
+      nameColor: 'text-stone-400',
     };
   } else if (!student) {
     return {
-      deskColor: 'bg-wood-100 border-dashed border-wood-200',
-      nameColor: 'text-wood-300',
+      deskColor: 'bg-wood-100 border-wood-200 border-dashed',
+      nameColor: 'text-wood-300 text-xs font-medium',
     };
   } else if (hasConflict) {
     return {
