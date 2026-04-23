@@ -23,12 +23,6 @@ const LayoutsSettings: React.FC = () => {
           </div>
           <p className="text-wood-500 text-sm mt-5">教室の座席数と列数を指定して下さい。</p>
           <SettingButtons />
-          <p className="text-wood-500 text-sm mt-5">
-            座席をクリックすると、席替えの時に生徒が座らない座席を設定できます。
-          </p>
-          <span className="text-wood-500 text-sm mt-1">
-            座席がコの字などのクラスで利用して下さい。
-          </span>
         </div>
       </div>
       <Cautions/>
