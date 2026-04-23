@@ -66,7 +66,7 @@ const AddStudentTabs = () => {
               rounded-b-2xl
               bg-wood-100
               relative z-20
-              ${isActive ? 'block animate-fadeIn' : 'hidden'}
+              ${isActive ? 'block' : 'hidden'}
             `}
           >
             {tab.content}
