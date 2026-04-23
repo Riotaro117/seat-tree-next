@@ -24,7 +24,7 @@ const DraggableSeatCard = ({ seat, student, hasConflict, isPrinted }: SeatCardPr
       `}
     >
       {seat.isDisabled ? (
-        <span className="text-wood-600 text-xs font-medium">
+        <span className={`${nameColor}`}>
           <X className="w-[100%]" />
         </span>
       ) : student ? (
@@ -33,7 +33,7 @@ const DraggableSeatCard = ({ seat, student, hasConflict, isPrinted }: SeatCardPr
             {student.needsFrontRow && !isPrinted && (
               <Glasses className={`w-3 h-3 ${hasConflict ? 'text-red-500' : 'text-wood-700'}`} />
             )}
-            {hasConflict && <AlertTriangle className="w-3 h-3 text-red-500 animate-pulse" />}
+            {hasConflict && <AlertTriangle className="w-3 h-3 text-red-500" />}
           </div>
           <span
             className={`text-center font-bold leading-tight select-none line-clamp-2 ${nameColor}`}
@@ -43,7 +43,7 @@ const DraggableSeatCard = ({ seat, student, hasConflict, isPrinted }: SeatCardPr
           </span>
         </>
       ) : (
-        <span className="text-wood-300 text-xs font-medium">空席</span>
+        <span className={`${nameColor}`}>空席</span>
       )}
     </div>
   );
