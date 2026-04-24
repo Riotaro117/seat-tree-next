@@ -4,14 +4,15 @@ import { AlertTriangle, Download, Loader2, Plus } from 'lucide-react';
 import { useAuthState } from '@/app/providers/AuthProvider';
 import insertExcelFile from '@/app/api/students/createFromExcel/route';
 import { useRouter } from 'next/navigation';
+import { useState } from 'react';
 
 const ImportExcelFile = () => {
-  const { user, isLoading } = useAuthState();
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const { user } = useAuthState();
   const router = useRouter();
 
   const handleFileSubmit = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    // 連打禁止
-    if (isLoading) return;
+    if (isSubmitting) return;
     if (!user) return;
     if (user.is_anonymous) {
       const ok = window.confirm('この機能はユーザー登録者限定です。ユーザー登録しますか？');
@@ -37,12 +38,15 @@ const ImportExcelFile = () => {
     // Excel→Json配列へ変換
     const jsonData = XLSX.utils.sheet_to_json<{ name: string }>(worksheet);
 
+    setIsSubmitting(true);
     try {
       await insertExcelFile(user.id, jsonData);
       alert('生徒名簿に登録が成功しました');
     } catch (error) {
       console.error(error);
       alert('登録に失敗しました');
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -75,7 +79,11 @@ const ImportExcelFile = () => {
           rounded-xl font-bold transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed shadow-sm active:scale-95 bg-wood-600 text-white hover:bg-wood-700 shadow-wood-800/20
         "
         >
-          {isLoading ? <Loader2 className="w-5 h-5 animate-spin" /> : <Plus className="w-5 h-5" />}
+          {isSubmitting ? (
+            <Loader2 className="w-5 h-5 animate-spin" />
+          ) : (
+            <Plus className="w-5 h-5" />
+          )}
           ファイルを選択し、生徒を追加
         </label>
       </div>
