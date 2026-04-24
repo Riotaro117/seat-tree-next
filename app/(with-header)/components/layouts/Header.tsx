@@ -63,7 +63,7 @@ const Header = () => {
         <div className="flex items-center gap-3">
           <button
             onClick={handleSignout}
-            className="cursor-pointer bg-transparent text-wood-600 hover:bg-wood-100 !shadow-none hidden sm:inline-flex"
+            className="cursor-pointer bg-transparent text-wood-600 hover:bg-wood-100 !shadow-none hidden font-bold font-serif sm:inline-flex"
           >
             {user.is_anonymous ? 'トップへ戻る' : 'ログアウト'}
           </button>
