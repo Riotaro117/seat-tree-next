@@ -1,7 +1,7 @@
 "use client"
-import deleteAllStudents from '@/app/api/students/deleteAll/route';
 import { useAuthState } from '@/app/providers/AuthProvider';
 import { useStudentsStore } from '@/app/store/useStudentsStore';
+import { deleteAllStudents } from '@/lib/supabase/students';
 import { AlertTriangle } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 

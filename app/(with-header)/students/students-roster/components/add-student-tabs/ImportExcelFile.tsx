@@ -2,9 +2,9 @@
 import * as XLSX from 'xlsx';
 import { AlertTriangle, Download, Loader2, Plus } from 'lucide-react';
 import { useAuthState } from '@/app/providers/AuthProvider';
-import insertExcelFile from '@/app/api/students/createFromExcel/route';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
+import { insertExcelFile } from '@/lib/supabase/students';
 
 const ImportExcelFile = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);

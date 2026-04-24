@@ -1,9 +1,9 @@
 'use client';
 import { useState } from 'react';
-import signin from '@/app/api/user/signin/route';
 import { useAuthState } from '@/app/providers/AuthProvider';
 import { useRouter } from 'next/navigation';
 import Button from '../../components/Button';
+import { signin } from '@/lib/supabase/auth';
 
 const SigninForm = () => {
   const [email, setEmail] = useState('');

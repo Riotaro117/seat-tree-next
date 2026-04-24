@@ -1,6 +1,6 @@
-import deleteStudent from '@/app/api/students/deleteSingle/route';
 import { useAuthState } from '@/app/providers/AuthProvider';
 import { useStudentsStore } from '@/app/store/useStudentsStore';
+import { deleteStudent } from '@/lib/supabase/students';
 import { Student } from '@/lib/type';
 import { Trash2 } from 'lucide-react';
 

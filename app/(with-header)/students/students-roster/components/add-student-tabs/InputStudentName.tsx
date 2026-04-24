@@ -1,7 +1,7 @@
 'use client';
-import createStudent from '@/app/api/students/create/route';
 import { useAuthState } from '@/app/providers/AuthProvider';
 import { useStudentsStore } from '@/app/store/useStudentsStore';
+import { createStudent } from '@/lib/supabase/students';
 import type { Student } from '@/lib/type';
 import { Loader2, Plus } from 'lucide-react';
 import { useState } from 'react';

@@ -2,12 +2,11 @@
 
 import { useEffect, useRef } from 'react';
 import { useAuthState } from './AuthProvider';
-import fetchStudents from '../api/students/read/route';
-import { insertTemplateStudents } from '../api/students/createTemplate/route';
-import fetchLayouts from '../api/layouts/readAll/route';
 import { useStudentsStore } from '../store/useStudentsStore';
 import { useLayoutsStore } from '../store/useLayoutsStore';
 import { useSeatsStore } from '../store/useSeatsStore';
+import { fetchStudents, insertTemplateStudents } from '@/lib/supabase/students';
+import { fetchLayouts } from '@/lib/supabase/layouts';
 
 export const DataProvider = ({ children }: { children: React.ReactNode }) => {
   const { isLoading, user } = useAuthState();

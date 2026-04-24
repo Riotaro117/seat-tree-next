@@ -1,10 +1,10 @@
 'use client';
-import deleteLayout from '@/app/api/layouts/delete/route';
 import { useAuthState } from '@/app/providers/AuthProvider';
 import { useColsStore } from '@/app/store/useColsStore';
 import { useLayoutsStore } from '@/app/store/useLayoutsStore';
 import { useSeatsStore } from '@/app/store/useSeatsStore';
 import { useTotalSeatsStore } from '@/app/store/useTotalSeatsStore';
+import { deleteLayout } from '@/lib/supabase/layouts';
 import type { ClassroomLayout } from '@/lib/type';
 import { ImageIcon, Trash2 } from 'lucide-react';
 import Link from 'next/link';

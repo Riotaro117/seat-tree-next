@@ -1,9 +1,8 @@
-"use client"
-import signout from '@/app/api/user/signout/route';
-import updateUser from '@/app/api/user/update/route';
+'use client';
 import { useAuthState } from '@/app/providers/AuthProvider';
 import { useState } from 'react';
 import Button from '../../components/Button';
+import { signout, updateUser } from '@/lib/supabase/auth';
 
 const UpdateForm = () => {
   const [name, setName] = useState('');

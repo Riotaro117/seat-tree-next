@@ -1,5 +1,4 @@
 'use client';
-import createLayout from '@/app/api/layouts/create/route';
 import { useAuthState } from '@/app/providers/AuthProvider';
 import { useColsStore } from '@/app/store/useColsStore';
 import { useLayoutsStore } from '@/app/store/useLayoutsStore';
@@ -14,6 +13,7 @@ import TopButtons from '../ui/TopButtons';
 import { useFrontRowLimitStore } from '@/app/store/useFrontRowLimitStore';
 import { useRouter } from 'next/navigation';
 import ClassroomSeats from '../ui/classroom-seats/ClassroomSeats';
+import { createLayout } from '@/lib/supabase/layouts';
 
 const MainContents = () => {
   const { cols } = useColsStore();
@@ -108,16 +108,15 @@ const MainContents = () => {
   };
 
   return (
-      <>
-        <TopButtons
-          handleRandomize={handleRandomize}
-          handleSaveCurrentLayout={handleSaveCurrentLayout}
-          handlePrintCurrentLayout={handlePrintCurrentLayout}
-        />
+    <>
+      <TopButtons
+        handleRandomize={handleRandomize}
+        handleSaveCurrentLayout={handleSaveCurrentLayout}
+        handlePrintCurrentLayout={handlePrintCurrentLayout}
+      />
 
-        <ClassroomSeats contentRef={contentRef} isPrinted={isPrinted} />
-      </>
-
+      <ClassroomSeats contentRef={contentRef} isPrinted={isPrinted} />
+    </>
   );
 };
 

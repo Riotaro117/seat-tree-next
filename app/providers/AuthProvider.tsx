@@ -1,6 +1,6 @@
 'use client';
 
-import { subscribeToAuthStateChange } from '@/lib/auth';
+import { subscribeToAuthStateChange } from '@/lib/supabase/auth';
 import { User } from '@supabase/supabase-js';
 import { createContext, useContext, useEffect, useState } from 'react';
 

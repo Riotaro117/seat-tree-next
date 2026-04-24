@@ -1,6 +1,6 @@
 'use client';
-import signout from '@/app/api/user/signout/route';
 import { useAuthState } from '@/app/providers/AuthProvider';
+import { signout } from '@/lib/supabase/auth';
 import { LogOut } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';

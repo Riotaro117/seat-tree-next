@@ -1,5 +1,5 @@
 'use client';
-import signout from '@/app/api/user/signout/route';
+import { signout } from '@/lib/supabase/auth';
 import { useRouter } from 'next/navigation';
 
 const SigninLink = () => {

@@ -1,6 +1,6 @@
-import updateStudent from '@/app/api/students/update/route';
 import { useAuthState } from '@/app/providers/AuthProvider';
 import { useStudentsStore } from '@/app/store/useStudentsStore';
+import { updateStudent } from '@/lib/supabase/students';
 import { Student } from '@/lib/type';
 import { Check, Users } from 'lucide-react';
 

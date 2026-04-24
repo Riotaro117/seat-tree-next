@@ -1,5 +1,4 @@
 'use client';
-import updateStudent from '@/app/api/students/update/route';
 import { useAuthState } from '@/app/providers/AuthProvider';
 import { useStudentsStore } from '@/app/store/useStudentsStore';
 import type { Student } from '@/lib/type';
@@ -12,6 +11,7 @@ import EditGenderPC from './EditGenderPC';
 import EditNeedsFrontRow from './EditNeedsFrontRow';
 import EditBadChemistryWith from './EditBadChemistryWith';
 import DeleteStudentButton from './DeleteStudentButton';
+import { updateStudent } from '@/lib/supabase/students';
 
 const StudentsList = () => {
   const { user, isLoading } = useAuthState();
