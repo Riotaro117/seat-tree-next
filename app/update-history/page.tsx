@@ -21,13 +21,13 @@ const UpdateHistory = () => {
               戻る
             </Link>
           </div>
-          <div className="text-center text-wood-500">
+          <div className="text text-wood-500">
             <p>いつもアプリをご愛好いただき、ありがとうございます。</p>
             <p>
               作成者にアプリのフィードバックをいただけますと、さらなる励みになりますので、よろしくお願いします。
             </p>
           </div>
-          {historyData.reverse().map((history) => {
+          {historyData.slice().reverse().map((history) => {
             return (
               <div
                 key={history.version}
