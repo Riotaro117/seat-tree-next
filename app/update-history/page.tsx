@@ -27,21 +27,24 @@ const UpdateHistory = () => {
               作成者にアプリのフィードバックをいただけますと、さらなる励みになりますので、よろしくお願いします。
             </p>
           </div>
-          {historyData.slice().reverse().map((history) => {
-            return (
-              <div
-                key={history.version}
-                className="mt-5 text-wood-500 flex flex-col items-start gap-2"
-              >
-                <span className="p-3 bg-lime-600 rounded-lg text-wood-100 text-left">
-                  v{history.version} <span className="text-sm">[{history.date}更新]</span>
-                </span>
-                <p className="text-wood-800 bg-wood-50 p-3 rounded-lg w-full text-left">
-                  {history.content}
-                </p>
-              </div>
-            );
-          })}
+          {historyData
+            .slice()
+            .reverse()
+            .map((history) => {
+              return (
+                <div
+                  key={history.version}
+                  className="mt-5 text-wood-500 flex flex-col items-start gap-2"
+                >
+                  <span className="p-3 bg-lime-600 rounded-lg text-wood-100 text-left">
+                    v{history.version} <span className="text-sm">[{history.date}更新]</span>
+                  </span>
+                  <p className="text-wood-800 bg-wood-50 p-3 rounded-lg w-full text-left">
+                    {history.content}
+                  </p>
+                </div>
+              );
+            })}
         </div>
       </div>
     </div>
