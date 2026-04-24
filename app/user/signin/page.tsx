@@ -1,9 +1,9 @@
 import { ExternalLink } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { VERSION } from '@/app/utils/constants';
 import SigninForm from './components/SigninForm';
 import SigninAnonymously from './components/SigninAnonymously';
+import { historyData } from '@/app/update-history/historyData';
 
 const Signin = () => {
   return (
@@ -24,7 +24,7 @@ const Signin = () => {
           className="flex justify-center mx-auto w-[200px] gap-3 mb-8 p-2 cursor-pointer bg-wood-600 text-wood-100 rounded-lg hover:bg-wood-500  font-serif"
           href={'/update-history'}
         >
-          <span>{VERSION} 更新履歴</span>
+          <span>v {historyData.at(-1)?.version} 更新履歴</span>
           <ExternalLink className="w-6 h-6 text-white" />
         </Link>
 
