@@ -21,7 +21,7 @@ const MainContents = () => {
   const { seats, setSeats } = useSeatsStore();
   const { students } = useStudentsStore();
   const { totalSeats } = useTotalSeatsStore();
-  const { user } = useAuthState();
+  const { user, isLoading } = useAuthState();
   const { frontRowLimit } = useFrontRowLimitStore();
   const router = useRouter();
 
@@ -42,6 +42,7 @@ const MainContents = () => {
     },
   });
 
+  if (isLoading) return null;
   if (!user) return null;
 
   // 席替えをする
