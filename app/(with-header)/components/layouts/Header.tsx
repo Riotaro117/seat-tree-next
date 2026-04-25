@@ -5,9 +5,12 @@ import { LogOut } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import { useState } from 'react';
+import Spinner from './Spinner';
 
 const Header = () => {
   const { user, isLoading } = useAuthState();
+  const [isSigningOut, setIsSigningOut] = useState(false);
   const router = useRouter();
 
   // クライアントサイドのuseState（ローディング）のため
@@ -16,10 +19,13 @@ const Header = () => {
 
   const handleSignout = async () => {
     try {
+      setIsSigningOut(true);
       await signout();
       router.replace('/user/signin');
     } catch (error) {
       alert(error instanceof Error ? error.message : 'ログアウトに失敗しました。');
+    } finally {
+      setIsSigningOut(false);
     }
   };
 
@@ -63,16 +69,18 @@ const Header = () => {
         <div className="flex items-center gap-3">
           <button
             onClick={handleSignout}
+            disabled={isSigningOut}
             className="cursor-pointer bg-transparent text-wood-600 hover:bg-wood-100 !shadow-none hidden font-bold font-serif sm:inline-flex"
           >
-            {user.is_anonymous ? 'トップへ戻る' : 'ログアウト'}
+            {isSigningOut ? <Spinner /> : user.is_anonymous ? 'トップへ戻る' : 'ログアウト'}
           </button>
           {/* レスポンシブで表示切り替え */}
           <button
             className="cursor-pointer bg-transparent text-wood-600 hover:bg-wood-100 !shadow-none sm:hidden"
+            disabled={isSigningOut}
             onClick={handleSignout}
           >
-            <LogOut className="w-5 h-5" />
+            {isSigningOut ? <Spinner /> : <LogOut className="w-5 h-5" />}
           </button>
         </div>
       </div>
