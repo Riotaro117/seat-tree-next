@@ -1,15 +1,17 @@
+import Spinner from '@/app/(with-header)/components/layouts/Spinner';
 import { useAuthState } from '@/app/providers/AuthProvider';
 import { useStudentsStore } from '@/app/store/useStudentsStore';
 import { updateStudent } from '@/lib/supabase/students';
-import type{ Student } from '@/lib/type';
+import type { Student } from '@/lib/type';
 import { Pencil, Save } from 'lucide-react';
 import { useState } from 'react';
 
-const EditName = ({student}:{student:Student}) => {
+const EditName = ({ student }: { student: Student }) => {
   const [editingNameId, setEditingNameId] = useState<string | null>(null);
   const [editingName, setEditingName] = useState('');
+  const [isEditing, setIsEditing] = useState(false);
   const { setStudents } = useStudentsStore();
-  const { user,isLoading } = useAuthState();
+  const { user } = useAuthState();
 
   if (!user) return null;
 
@@ -17,13 +19,15 @@ const EditName = ({student}:{student:Student}) => {
   const handleUpdateName = async (student: Student, editingName: string) => {
     if (!editingName.trim()) return;
     try {
+      setIsEditing(true);
       const newNameStudent = { ...student, name: editingName };
       const data = await updateStudent(user.id, newNameStudent);
       setStudents((prev) => prev.map((s) => (s.id === student.id ? data : s)));
       setEditingNameId(null);
     } catch (error) {
-      console.error(error);
-      alert('更新に失敗しました');
+      alert(error instanceof Error ? error.message : '更新に失敗しました');
+    } finally {
+      setIsEditing(false);
     }
   };
   return (
@@ -44,9 +48,9 @@ const EditName = ({student}:{student:Student}) => {
           <button
             className="cursor-pointer text-gray-400 hover:text-blue-700"
             onClick={() => handleUpdateName(student, editingName)}
-            disabled={isLoading}
+            disabled={isEditing}
           >
-            <Save className="w-5 h-5" />
+            {isEditing ? <Spinner /> : <Save className="w-5 h-5" />}
           </button>
         </div>
       ) : (
@@ -58,9 +62,9 @@ const EditName = ({student}:{student:Student}) => {
               setEditingNameId(student.id);
               setEditingName(student.name);
             }}
-            disabled={isLoading}
+            disabled={isEditing}
           >
-            <Pencil className="w-4 h-4" />
+            {isEditing ? <Spinner /> : <Pencil className="w-4 h-4" />}
           </button>
         </div>
       )}

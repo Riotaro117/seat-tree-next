@@ -1,10 +1,11 @@
 'use client';
 import * as XLSX from 'xlsx';
-import { AlertTriangle, Download, Loader2, Plus } from 'lucide-react';
+import { AlertTriangle, Download, Plus } from 'lucide-react';
 import { useAuthState } from '@/app/providers/AuthProvider';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { insertExcelFile } from '@/lib/supabase/students';
+import Spinner from '@/app/(with-header)/components/layouts/Spinner';
 
 const ImportExcelFile = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -79,11 +80,7 @@ const ImportExcelFile = () => {
           rounded-xl font-bold transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed shadow-sm active:scale-95 bg-wood-600 text-white hover:bg-wood-700 shadow-wood-800/20
         "
         >
-          {isSubmitting ? (
-            <Loader2 className="w-5 h-5 animate-spin" />
-          ) : (
-            <Plus className="w-5 h-5" />
-          )}
+          {isSubmitting ? <Spinner /> : <Plus className="w-5 h-5" />}
           ファイルを選択し、生徒を追加
         </label>
       </div>

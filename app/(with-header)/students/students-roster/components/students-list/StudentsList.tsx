@@ -14,8 +14,9 @@ import DeleteStudentButton from './DeleteStudentButton';
 import { updateStudent } from '@/lib/supabase/students';
 
 const StudentsList = () => {
-  const { user, isLoading } = useAuthState();
+  const { user } = useAuthState();
   const { students, setStudents } = useStudentsStore();
+  const [isUpdatingGender, setIsUpdatingGender] = useState(false);
 
   // 編集しているidの状態
   const [editingId, setEditingId] = useState<string | null>(null);
@@ -25,20 +26,22 @@ const StudentsList = () => {
   // 生徒の性別を更新する処理
   const handleUpdateGender = async (student: Student, gender: Student['gender']) => {
     try {
+      setIsUpdatingGender(true);
       // genderのみ書き換えた生徒を定義する
       const newGenderStudent = { ...student, gender };
       await updateStudent(user.id, newGenderStudent);
       // DB操作→stateの更新 更新された生徒と同じidの生徒だけを新しいstudentに置き換える
       setStudents((prev) => prev.map((s) => (s.id === newGenderStudent.id ? newGenderStudent : s)));
     } catch (error) {
-      console.error(error);
-      alert('更新に失敗しました');
+      alert(error instanceof Error ? error.message : '更新に失敗しました');
+    } finally {
+      setIsUpdatingGender(false);
     }
   };
 
   return (
     <div
-      className={`flex-1 overflow-y-auto pr-2 space-y-3 ${isLoading ? 'opacity-50 pointer-events-none' : ''}`}
+      className={`flex-1 overflow-y-auto pr-2 space-y-3 ${isUpdatingGender ? 'opacity-50 pointer-events-none' : ''}`}
     >
       {students.map((student) => (
         <div
@@ -59,12 +62,20 @@ const StudentsList = () => {
             </div>
             <div className="flex flex-col">
               <EditName student={student} />
-              <EditGenderSP student={student} handleUpdateGender={handleUpdateGender} />
+              <EditGenderSP
+                student={student}
+                handleUpdateGender={handleUpdateGender}
+                isUpdatingGender={isUpdatingGender}
+              />
             </div>
           </div>
 
           <div className="flex flex-wrap items-center gap-2">
-            <EditGenderPC student={student} handleUpdateGender={handleUpdateGender} />
+            <EditGenderPC
+              student={student}
+              handleUpdateGender={handleUpdateGender}
+              isUpdatingGender={isUpdatingGender}
+            />
             <EditNeedsFrontRow student={student} />
             <div className="relative">
               <EditBadChemistryWith

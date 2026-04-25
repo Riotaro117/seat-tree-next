@@ -1,9 +1,10 @@
 'use client';
+import Spinner from '@/app/(with-header)/components/layouts/Spinner';
 import { useAuthState } from '@/app/providers/AuthProvider';
 import { useStudentsStore } from '@/app/store/useStudentsStore';
 import { createStudent } from '@/lib/supabase/students';
 import type { Student } from '@/lib/type';
-import { Loader2, Plus } from 'lucide-react';
+import { Plus } from 'lucide-react';
 import { useState } from 'react';
 
 const InputStudentName: React.FC = () => {
@@ -78,11 +79,7 @@ const InputStudentName: React.FC = () => {
           onClick={handleAddStudent}
           disabled={isSubmitting}
         >
-          {isSubmitting ? (
-            <Loader2 className="w-5 h-5 animate-spin" />
-          ) : (
-            <Plus className="w-5 h-5" />
-          )}
+          {isSubmitting ? <Spinner /> : <Plus className="w-5 h-5" />}
           追加
         </button>
       </div>
