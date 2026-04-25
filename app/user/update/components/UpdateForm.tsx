@@ -1,25 +1,27 @@
 'use client';
-import { useAuthState } from '@/app/providers/AuthProvider';
 import { useState } from 'react';
 import Button from '../../components/Button';
 import { signout, updateUser } from '@/lib/supabase/auth';
+import Spinner from '@/app/(with-header)/components/layouts/Spinner';
 
 const UpdateForm = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const { isLoading } = useAuthState();
+  const [isUpdatingUser, setIsUpdatingUser] = useState(false);
 
   const handleUpdateUser = async () => {
     try {
+      setIsUpdatingUser(true);
       await updateUser(email, password, name);
       alert(
         '本登録が完了しました。このあと届くメールの「登録を完了する」ボタンを押してから、ログインしてください。',
       );
       await signout();
     } catch (error) {
-      console.error('Error input form:', error);
-      alert('入力欄に必須事項を入力して下さい。');
+      alert(error instanceof Error ? error.message : '入力欄に必須事項を入力して下さい。');
+    } finally {
+      setIsUpdatingUser(false);
     }
   };
   return (
@@ -45,8 +47,8 @@ const UpdateForm = () => {
         value={password}
         onChange={(e) => setPassword(e.target.value)}
       />
-      <Button type="submit" disabled={isLoading || !name || !email || !password}>
-        ユーザー登録
+      <Button type="submit" disabled={isUpdatingUser || !name || !email || !password}>
+        {isUpdatingUser ? <Spinner /> : 'ユーザー登録'}
       </Button>
     </form>
   );
