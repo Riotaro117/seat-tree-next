@@ -318,7 +318,7 @@ export const fetchStudents = async (userId: string): Promise<Student[]> => {
   return formattedStudents;
 };
 
-// 生徒情報の更新
+// 生徒情報の更新（内容は任せる）
 export const updateStudent = async (userId: string, student: Student): Promise<Student> => {
   if (!userId) throw new Error('ユーザーIDが指定されていません。');
 
