@@ -1,36 +1,109 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Seat Tree -配慮できる席替えアプリ-
 
-## Getting Started
+「配慮が必要な生徒関係も考えながら、ワンクリックで席替え。名簿管理・履歴保存・印刷までできる、先生の負担を減らす席替え支援アプリ。」
 
-First, run the development server:
+Seat Treeは、教育現場での席替え業務を効率化するために開発されたWebアプリケーションです。生徒同士の相性や、前列希望などの配慮事項をシステムが自動で考慮し、最適な座席表をワンクリックで生成します。さらに、ドラッグ＆ドロップによる微調整や、Excelからの名簿一括登録にも対応しています。
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## ✨ 主な機能
+
+*   **自動席替え生成（配慮条件の考慮）**
+    *   生徒ごとの「前列希望」や「相性の悪い生徒（隣接不可）」を考慮したランダム配置アルゴリズム。
+*   **ドラッグ＆ドロップによる直感的な微調整**
+    *   自動生成後、特定の生徒間の席を手動で簡単に入れ替えることが可能（`@dnd-kit`を採用）。
+*   **Excelファイルからの名簿インポート**
+    *   学校で管理しているExcelの名簿データをそのままアップロード・解析して生徒一覧に登録可能。
+*   **教室レイアウトのカスタマイズ**
+    *   列数・行数の自由な変更や、「前列」と見なす範囲の設定など、各教室の環境に合わせたレイアウト設定。
+*   **席替え履歴の保存機能**
+    *   過去の席替えデータを履歴としてクラウドに保存。いつでも過去の座席状態をプレビュー可能。
+*   **座席表の印刷機能**
+    *   作成した座席表をそのままプリンターで印刷したり、PDFとして保存するための専用出力（`react-to-print`を採用）。
+*   **ユーザー認証とデータ永続化**
+    *   Supabaseを利用したセキュアなログインと、先生ごとのクラスデータ・履歴のデータベース保存。
+*   **更新履歴の通知**
+    *   アプリのバージョンアップや改善情報をユーザーに届ける更新履歴ページ。
+
+## 🛠 使用技術
+
+本プロジェクトは、モダンなフロントエンド技術とBaaSを組み合わせ、高速な開発とスケーラブルな運用を目指しています。
+
+*   **フレームワーク**: Next.js 16 (App Router)
+*   **ライブラリ**: React 19
+*   **言語**: TypeScript 5
+*   **スタイリング**: Tailwind CSS 4
+*   **状態管理**: Jotai (モダンで軽量なAtomベースのグローバルステート管理)
+*   **バックエンド / データベース / 認証**: Supabase (`@supabase/ssr`, `@supabase/supabase-js`)
+*   **ドラッグ＆ドロップ**: `@dnd-kit/react`
+*   **Excelデータ処理**: `xlsx`
+*   **印刷処理**: `react-to-print`
+*   **アイコン**: Lucide React
+*   **フォント**: Google Fonts (`Kiwi Maru`, `Zen Maru Gothic`)
+
+## 🚀 環境構築と起動
+
+ローカル環境でプロジェクトを実行するための手順です。
+
+1.  **リポジトリのクローン**
+    ```bash
+    git clone https://github.com/YourUsername/seat-tree-next.git
+    cd seat-tree-next
+    ```
+
+2.  **依存関係のインストール**
+    ```bash
+    npm install
+    # または yarn install / pnpm install / bun install
+    ```
+
+3.  **環境変数の設定**
+    プロジェクトルートに `.env.local` または `.env` ファイルを作成し、Supabaseの認証情報を入力します。
+    ※開発環境用のURLおよびAnon Keyを取得してください。
+    ```env
+    NEXT_PUBLIC_SUPABASE_URL=your-supabase-url
+    NEXT_PUBLIC_SUPABASE_ANON_KEY=your-supabase-anon-key
+    ```
+
+4.  **開発サーバーの起動**
+    ```bash
+    npm run dev
+    ```
+
+5.  **ブラウザで確認**
+    [http://localhost:3000](http://localhost:3000) にアクセスするとアプリが起動します。
+
+## 📁 ディレクトリ構成の概要
+
+Next.js の App Router の機能を活用し、機能ベースで直感的な構成にしています。
+
+```plaintext
+seat-tree-next/
+├── app/                      # Next.js App Routerのエントリーポイント
+│   ├── (with-header)/        # 共通ヘッダーを持つ保護された画面グループ
+│   │   ├── components/       # メイン画面や座席UIのコンポーネント
+│   │   ├── seat-layouts/     # レイアウト設定・履歴管理ページ
+│   │   └── students/         # 生徒名簿管理・Excelファイルインポート
+│   ├── providers/            # AuthProvider, DataProvider (全体への状態提供)
+│   ├── store/                # Jotaiを用いたグローバル状態定義（seats, students, layouts等）
+│   ├── update-history/       # アプリの更新履歴ページ
+│   ├── user/                 # サインイン・ユーザー情報更新ページ
+│   └── utils/                # 席替えアルゴリズムなどのロジック（seatingLogic.tsなど）
+├── lib/                      # 汎用的な設定や型定義
+│   ├── supabase/             # Supabaseクライアント・CRUD操作の実装
+│   ├── database.types.ts     # SupabaseのDBスキーマ型定義
+│   └── type.ts               # 生徒、座席、レイアウトなどのフロントエンド型定義
+├── public/                   # 画像・ファビコンなどの静的アセットファイル
+├── package.json              # 依存パッケージおよびスクリプト
+├── tailwind.config.js / postcss # Tailwind CSS設定
+└── README.md                 # プロジェクトの概要（本ファイル）
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 📝 開発の背景とアピールポイント (ポートフォリオ用)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+**1. 実務（教育現場）のペインに基づいた課題解決**
+学校の先生が毎月行う「席替え」は、生徒同士の相性、視力問題（前列希望）、多様な配慮事項を手作業でパズルのように組み合わせており、非常に負担の大きい作業です。本アプリは、この特定のペインポイントを解消するために**「配慮事項をシステムに任せつつ、最終的な微調整（D&D）は人間の手で行える」**という実用性の高いバランスで設計しました。
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+**2. 複雑なUIと状態管理の分離**
+多数の「生徒」と「座席」が複雑に連動するUI（ドラッグ＆ドロップ、空席管理、ランダム配置）を実現するため、`Jotai`を活用して状態管理を軽量・最適化し、`@dnd-kit`でスムーズな操作性を提供しています。
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+**3. バックエンドレスアーキテクチャ**
+`Supabase`の活用により、スピーディに認証・データベース・RLS（Row Level Security）を構築しました。教員ごとのデータがセキュアに隔離され、別デバイスからのアクセスや履歴の永続化も実現しています。
