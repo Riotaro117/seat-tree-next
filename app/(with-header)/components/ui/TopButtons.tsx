@@ -3,6 +3,7 @@ import { useAuthState } from '@/app/providers/AuthProvider';
 import { ImageIcon, Printer, Save, Settings, Shuffle, Users } from 'lucide-react';
 import Link from 'next/link';
 import type { UseReactToPrintFn } from 'react-to-print';
+import Spinner from '../layouts/Spinner';
 
 interface TopButtonsProps {
   handleRandomize: () => void;
@@ -24,8 +25,14 @@ const TopButtons: React.FC<TopButtonsProps> = ({
   return (
     <div className="flex flex-wrap gap-4 justify-center mb-8 sticky top-20 z-20 py-2 bg-wood-50/90 backdrop-blur-sm rounded-xl">
       <button className={`${brownButtonDesign}`} onClick={handleRandomize} disabled={isLoading}>
-        <Shuffle className="w-5 h-5" />
-        席替え実行
+        {isLoading ? (
+          <Spinner />
+        ) : (
+          <>
+            <Shuffle className="w-5 h-5" />
+            席替え実行
+          </>
+        )}
       </button>
       <Link href={'/seat-layouts/settings'} className={`${whiteButtonDesign}`}>
         <Settings className="w-5 h-5" />
