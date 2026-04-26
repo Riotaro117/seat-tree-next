@@ -23,6 +23,9 @@ export const historyData: History[] = [
   { version: '1.4.0', date: '2026.3.5', content: 'アプリの更新履歴を表示できるように対応' },
   { version: '1.5.0', date: '2026.3.13', content: 'メールで認証ボタンを押した後の挙動を修正' },
   { version: '1.5.1', date: '2026.3.13', content: '更新履歴のUIを修正' },
-  { version: '2.0.0', date: '2026.4.26', content: '大幅なコードの見直し、セキュリティの向上、座席UIの変更' },
-
+  {
+    version: '2.0.0',
+    date: '2026.4.26',
+    content: '大幅なコードの見直し、座席UIの変更、座席のドラッグ&ドロップ対応',
+  },
 ];
