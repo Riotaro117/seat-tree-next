@@ -7,7 +7,7 @@ import { useLayoutsStore } from '../store/useLayoutsStore';
 import { useSeatsStore } from '../store/useSeatsStore';
 import { fetchStudents, insertTemplateStudents } from '@/lib/supabase/students';
 import { fetchLayouts } from '@/lib/supabase/layouts';
-import SpinnerWhole from '../(with-header)/components/layouts/SpinnerWhole';
+import SpinnerWhole from '../classroom/components/layouts/SpinnerWhole';
 
 export const DataProvider = ({ children }: { children: React.ReactNode }) => {
   const [isDataLoading, setIsDateLoading] = useState(true); //初期状態をtrueにすることでデータ取得前のHTMLが見えなくなる
