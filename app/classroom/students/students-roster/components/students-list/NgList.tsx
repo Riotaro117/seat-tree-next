@@ -1,4 +1,4 @@
-import Spinner from '@/app/(with-header)/components/layouts/Spinner';
+import Spinner from '@/app/classroom/components/layouts/Spinner';
 import { useAuthState } from '@/app/providers/AuthProvider';
 import { useStudentsStore } from '@/app/store/useStudentsStore';
 import { updateStudent } from '@/lib/supabase/students';
