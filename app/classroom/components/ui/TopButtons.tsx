@@ -34,15 +34,15 @@ const TopButtons: React.FC<TopButtonsProps> = ({
           </>
         )}
       </button>
-      <Link href={'/seat-layouts/settings'} className={`${whiteButtonDesign}`}>
+      <Link href={'/classroom/seat-layouts/settings'} className={`${whiteButtonDesign}`}>
         <Settings className="w-5 h-5" />
         座席設定
       </Link>
-      <Link href={'/students/students-roster'} className={`${whiteButtonDesign}`}>
+      <Link href={'/classroom/students/students-roster'} className={`${whiteButtonDesign}`}>
         <Users className="w-5 h-5" />
         <span>生徒名簿</span>
       </Link>
-      <Link href={'/seat-layouts/history'} className={`${whiteButtonDesign}`}>
+      <Link href={'/classroom/seat-layouts/history'} className={`${whiteButtonDesign}`}>
         <ImageIcon className="w-5 h-5" />
         <span>履歴</span>
       </Link>
