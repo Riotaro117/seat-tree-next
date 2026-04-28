@@ -28,7 +28,7 @@ const History: React.FC = () => {
     // 選択した座席の総数をセットする
     setTotalSeats(layout.seats.length);
     // 教室モードを読み込む
-    router.push('/');
+    router.push('/classroom');
   };
 
   const handleDeleteLayout = async (id: string) => {
@@ -48,7 +48,7 @@ const History: React.FC = () => {
           <p className="text-wood-500 text-sm mt-1">保存した座席表（最大20件）</p>
         </div>
         <Link
-          href={'/'}
+          href={'/classroom'}
           className="cursor-pointer items-center justify-center gap-2 px-4 py-2 rounded-xl font-bold transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed shadow-sm active:scale-95 bg-white text-wood-800 border-2 border-wood-200 hover:border-wood-400 hover:bg-wood-50"
         >
           戻る
