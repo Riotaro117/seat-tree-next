@@ -1,5 +1,5 @@
 'use client';
-import BlackBoard from '@/app/(with-header)/components/ui/BlackBoard';
+import BlackBoard from '@/app/classroom/components/ui/BlackBoard';
 import { useColsStore } from '@/app/store/useColsStore';
 import { useSeatsStore } from '@/app/store/useSeatsStore';
 import { X } from 'lucide-react';
