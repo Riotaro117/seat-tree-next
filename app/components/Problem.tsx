@@ -20,7 +20,7 @@ const Problem = () => {
               <div>
                 <h4 className="text-2xl font-bold text-wood-800 mb-3">手作業の限界</h4>
                 <p className="text-wood-600 leading-relaxed text-lg">
-                  「席替えのたびにExcelのセルを使用しながら手動で時間がかかる…」
+                  「席替えのたびにExcelのセルを使用しながら手動で時間がかかるうえ、完全にランダムにできない…」
                 </p>
               </div>
             </div>
@@ -36,6 +36,9 @@ const Problem = () => {
                 <h4 className="text-2xl font-bold text-wood-800 mb-3">複雑な配慮の管理</h4>
                 <p className="text-wood-600 leading-relaxed text-lg">
                   「配慮が必要な生徒の組み合わせを、毎回メモで管理している…」
+                </p>
+                <p className="text-wood-600 leading-relaxed text-lg">
+                  「席替えをした後に、配慮が必要な生徒がいたことに気がつく… 」
                 </p>
               </div>
             </div>
