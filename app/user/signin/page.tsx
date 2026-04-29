@@ -8,7 +8,7 @@ const Signin = () => {
   return (
     <div className="min-h-screen flex items-center justify-center bg-lime-50 p-4">
       <div className="bg-white p-8 rounded-3xl shadow-xl max-w-md w-full border-4 border-wood-200 text-center">
-        <div className="w-50 h-50 mx-auto sm:w-70 sm:h-70">
+        <Link href={'/'} className="w-50 h-50 mx-auto sm:w-70 sm:h-70 cursor-pointer">
           <Image
             src={'/icon_seat_tree.webp'}
             width={800}
@@ -16,7 +16,7 @@ const Signin = () => {
             alt="Seat Treeのアイコン"
             loading="eager"
           />
-        </div>
+        </Link>
         <h1 className="text-3xl font-bold text-wood-800 font-serif mb-2">Seat Tree</h1>
         <p className="text-wood-500 mb-2 font-serif">-配慮できる席替えアプリ-</p>
         <Link
@@ -26,10 +26,10 @@ const Signin = () => {
           <span>v {historyData.at(-1)?.version} 更新履歴</span>
           <ExternalLink className="w-6 h-6 text-white" />
         </Link>
-
         <SigninForm />
-        {/* <SigninAnonymously /> */}
-
+        <Link href={'/'} className="mx-auto cursor-pointer font-bold text-wood-500 mb-2">
+          トップページに戻る
+        </Link>
         <p className="text-wood-500 mt-8 text-sm">
           個人情報は、通信の暗号化とアクセス制御により
           <br />
