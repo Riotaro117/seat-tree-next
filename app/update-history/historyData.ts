@@ -28,4 +28,9 @@ export const historyData: History[] = [
     date: '2026.4.26',
     content: '大幅なコードの見直し、座席UIの変更、座席のドラッグ&ドロップ対応',
   },
+  {
+    version: '3.0.0',
+    date: '2026.4.30',
+    content: 'トップページの追加、ページの構造の変更、ルーティングの見直し',
+  },
 ];
