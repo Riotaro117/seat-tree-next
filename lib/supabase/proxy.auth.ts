@@ -1,5 +1,5 @@
 import { createServerClient } from '@supabase/ssr';
-import { NextResponse, type NextRequest } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 
 export async function updateSession(request: NextRequest) {
   let supabaseResponse = NextResponse.next({ request });
@@ -28,11 +28,24 @@ export async function updateSession(request: NextRequest) {
     },
   );
   const { data } = await supabase.auth.getClaims();
+  console.log('data', data);
+  console.log('request', request);
 
-  const isAuthPage = request.nextUrl.pathname.startsWith('/user/signin');
+  const isLoggedIn = data?.claims;
+  const isAnonymous = data?.claims.is_anonymous;
+  const { pathname } = request.nextUrl;
 
-  if (!data?.claims && !isAuthPage) {
+  // ログインしていないかつ/classroom配下へのアクセスがあったとき
+  if (!isLoggedIn && pathname.startsWith('/classroom')) {
     return NextResponse.redirect(new URL('/user/signin', request.url));
+  }
+  // 仮ログインしているかつ/または/user/signin配下へのアクセスがあったとき
+  if (isAnonymous && (pathname === '/' || pathname.startsWith('/user/signin'))) {
+    return NextResponse.redirect(new URL('/user/update', request.url));
+  }
+  // ログインしているかつ/または/user/signin配下へのアクセスがあったとき
+  if (isLoggedIn && (pathname === '/' || pathname.startsWith('/user/signin'))) {
+    return NextResponse.redirect(new URL('/classroom', request.url));
   }
   return supabaseResponse;
 }
