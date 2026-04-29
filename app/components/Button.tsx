@@ -12,7 +12,7 @@ const Button = ({ children, isLoading, color = 'brown', ...props }: ButtonProps)
   return (
     <button
       {...props}
-      className={`cursor-pointer items-center justify-center gap-2 px-4 py-3 rounded-xl font-bold transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed shadow-sm active:scale-95 text-white w-full text-lg ${colorStyles[color]}`}
+      className={`cursor-pointer items-center justify-center gap-2 px-4 py-3 rounded-xl font-bold transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed shadow-sm active:scale-95 text-white w-full text-sm sm:text-md md:text-xl ${colorStyles[color]}`}
       disabled={isLoading || props.disabled}
     >
       {children}
