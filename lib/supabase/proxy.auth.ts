@@ -28,23 +28,23 @@ export async function updateSession(request: NextRequest) {
     },
   );
   const { data } = await supabase.auth.getClaims();
-  console.log('data', data);
-  console.log('request', request);
 
-  const isLoggedIn = data?.claims;
-  const isAnonymous = data?.claims.is_anonymous;
+  const claims = data?.claims ?? null;
+  const isFullUser = claims?.is_anonymous === false;
+  const isAnonymous = claims?.is_anonymous === true;
+  const isGuest = claims === null;
   const { pathname } = request.nextUrl;
 
-  // ログインしていないかつ/classroom配下へのアクセスがあったとき
-  if (!isLoggedIn && pathname.startsWith('/classroom')) {
+  // ユーザーが存在しないかつ/classroom配下もしくは/user/updateへのアクセスがあったとき
+  if (isGuest && (pathname.startsWith('/classroom') || pathname.startsWith('/user/update'))) {
     return NextResponse.redirect(new URL('/user/signin', request.url));
   }
   // 仮ログインしているかつ/または/user/signin配下へのアクセスがあったとき
   if (isAnonymous && (pathname === '/' || pathname.startsWith('/user/signin'))) {
-    return NextResponse.redirect(new URL('/user/update', request.url));
+    return NextResponse.redirect(new URL('/classroom', request.url));
   }
-  // ログインしているかつ/または/user/signin配下へのアクセスがあったとき
-  if (isLoggedIn && (pathname === '/' || pathname.startsWith('/user/signin'))) {
+  // ログインしているかつ/または/user配下へのアクセスがあったとき
+  if (isFullUser && (pathname === '/' || pathname.startsWith('/user'))) {
     return NextResponse.redirect(new URL('/classroom', request.url));
   }
   return supabaseResponse;
