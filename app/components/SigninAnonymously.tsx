@@ -13,7 +13,7 @@ const SigninAnonymously = () => {
     try {
       setIsSigningIn(true);
       await signinAnonymously();
-      router.push('/');
+      router.replace('/classroom');
     } catch (error) {
       alert(error instanceof Error ? error.message : '仮ログインに失敗しました。');
     } finally {
