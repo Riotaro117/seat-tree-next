@@ -11,7 +11,8 @@ type AuthContextType = {
 
 const AuthContext = createContext<AuthContextType>({ user: undefined, isLoading: true });
 
-// childrenで小要素に渡す限り、子孫要素にクライアントコンポーネントが伝播することはない
+// children として受け取ったServer Componentは
+// Client Componentの境界を越えてもサーバー側を維持できる
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [user, setUser] = useState<User | null | undefined>(undefined); // 初期値はローディング中
   const isLoading = user === undefined;
