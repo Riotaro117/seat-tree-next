@@ -8,7 +8,7 @@ const Signin = () => {
   return (
     <div className="min-h-screen flex items-center justify-center bg-lime-50 p-4">
       <div className="bg-white p-8 rounded-3xl shadow-xl max-w-md w-full border-4 border-wood-200 text-center">
-        <Link href={'/'} className="w-50 h-50 mx-auto sm:w-70 sm:h-70 cursor-pointer">
+        <div className="w-50 h-50 mx-auto sm:w-70 sm:h-70">
           <Image
             src={'/icon_seat_tree.webp'}
             width={800}
@@ -16,7 +16,7 @@ const Signin = () => {
             alt="Seat Treeのアイコン"
             loading="eager"
           />
-        </Link>
+        </div>
         <h1 className="text-3xl font-bold text-wood-800 font-serif mb-2">Seat Tree</h1>
         <p className="text-wood-500 mb-2 font-serif">-配慮できる席替えアプリ-</p>
         <Link
