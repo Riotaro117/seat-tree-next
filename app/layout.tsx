@@ -2,7 +2,6 @@ import type { Metadata } from 'next';
 import { Kiwi_Maru, Zen_Maru_Gothic } from 'next/font/google';
 import './globals.css';
 import { AuthProvider } from './providers/AuthProvider';
-import { DataProvider } from './providers/DataProvider';
 
 const kiwiMaru = Kiwi_Maru({
   variable: '--font-kiwi-maru',
@@ -65,7 +64,7 @@ export default function RootLayout({
       </head>
       <body className="min-h-full flex flex-col">
         <AuthProvider>
-          <DataProvider>{children}</DataProvider>
+          {children}
         </AuthProvider>
       </body>
     </html>
