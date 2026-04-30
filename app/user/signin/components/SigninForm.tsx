@@ -4,14 +4,11 @@ import { useRouter } from 'next/navigation';
 import { signin } from '@/lib/supabase/auth';
 import Spinner from '@/app/classroom/components/layouts/Spinner';
 import Button from '@/app/components/Button';
-// import { useAuthState } from '@/app/providers/AuthProvider';
 
 const SigninForm = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isSigningIn, setIsSigningIn] = useState(false);
-  // const { user } = useAuthState();
-  // console.log(user);
 
   const router = useRouter();
 
