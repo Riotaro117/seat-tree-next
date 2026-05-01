@@ -17,9 +17,7 @@ const UpdateForm = () => {
     try {
       setIsUpdatingUser(true);
       await updateUser(email, password, name);
-      alert(
-        '本登録が完了しました。このあと届くメールの「登録を完了する」ボタンを押してから、ログインしてください。',
-      );
+      alert('仮登録が完了しました。');
       await signout();
       router.replace('/user/registered');
     } catch (error) {
