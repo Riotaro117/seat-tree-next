@@ -27,9 +27,9 @@ const Hero = () => {
         {/* メインコピー部分 */}
         <div className="w-full lg:w-[35%] text-center lg:text-left">
           <h2 className="text-4xl sm:text-5xl md:text-4xl 2xl:text-6xl font-bold font-serif text-wood-800 leading-[1.2] mb-6 sm:mb-8 tracking-tight">
-            配慮しながら
+            配慮できる
             <br />
-            ワンクリック席替え
+            席替えアプリ
           </h2>
 
           <p className="text-base sm:text-lg md:text-xl text-wood-600 mb-8 sm:mb-12 max-w-2xl mx-auto lg:mx-0 leading-relaxed pr-0 lg:pr-8">
