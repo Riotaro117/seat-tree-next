@@ -33,4 +33,9 @@ export const historyData: History[] = [
     date: '2026.4.30',
     content: 'トップページの追加、ページの構造の変更、ルーティングの見直し',
   },
+  {
+    version: '3.1.0',
+    date: '2026.5.1',
+    content: 'ユーザー登録ページの追加、メール認証の改善',
+  },
 ];
