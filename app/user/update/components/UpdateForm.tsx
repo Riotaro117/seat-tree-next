@@ -3,14 +3,17 @@ import { useState } from 'react';
 import { signout, updateUser } from '@/lib/supabase/auth';
 import Spinner from '@/app/classroom/components/layouts/Spinner';
 import Button from '@/app/components/Button';
+import { useRouter } from 'next/navigation';
 
 const UpdateForm = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isUpdatingUser, setIsUpdatingUser] = useState(false);
+  const router = useRouter();
 
-  const handleUpdateUser = async () => {
+  const handleUpdateUser = async (e: { preventDefault: () => void }) => {
+    e.preventDefault();
     try {
       setIsUpdatingUser(true);
       await updateUser(email, password, name);
@@ -18,6 +21,7 @@ const UpdateForm = () => {
         '本登録が完了しました。このあと届くメールの「登録を完了する」ボタンを押してから、ログインしてください。',
       );
       await signout();
+      router.replace('/user/registered');
     } catch (error) {
       alert(error instanceof Error ? error.message : '入力欄に必須事項を入力して下さい。');
     } finally {
