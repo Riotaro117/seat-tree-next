@@ -6,9 +6,11 @@ import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { insertExcelFile } from '@/lib/supabase/students';
 import Spinner from '@/app/classroom/components/layouts/Spinner';
+import { useStudentsStore } from '@/app/store/useStudentsStore';
 
 const ImportExcelFile = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const { setStudents } = useStudentsStore();
   const { user } = useAuthState();
   const router = useRouter();
 
@@ -41,11 +43,12 @@ const ImportExcelFile = () => {
 
     setIsSubmitting(true);
     try {
-      await insertExcelFile(user.id, jsonData);
+      const excelAddStudents = await insertExcelFile(user.id, jsonData);
       alert('生徒名簿に登録が成功しました');
+      setStudents((prev) => [...prev, ...excelAddStudents]);
     } catch (error) {
       console.error(error);
-      alert('登録に失敗しました');
+      alert(error instanceof Error ? error.message : '登録に失敗しました');
     } finally {
       setIsSubmitting(false);
     }
