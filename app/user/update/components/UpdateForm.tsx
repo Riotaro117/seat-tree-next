@@ -10,7 +10,8 @@ const UpdateForm = () => {
   const [password, setPassword] = useState('');
   const [isUpdatingUser, setIsUpdatingUser] = useState(false);
 
-  const handleUpdateUser = async () => {
+  const handleUpdateUser = async (e: { preventDefault: () => void }) => {
+    e.preventDefault();
     try {
       setIsUpdatingUser(true);
       await updateUser(email, password, name);
