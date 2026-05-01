@@ -1,0 +1,57 @@
+'use client';
+import BlackBoard from '@/app/classroom/components/ui/BlackBoard';
+import { useColsStore } from '@/app/store/useColsStore';
+import { useSeatsStore } from '@/app/store/useSeatsStore';
+import { X } from 'lucide-react';
+
+const ClassroomLayout = () => {
+  const { seats, setSeats } = useSeatsStore();
+  const { cols } = useColsStore();
+
+  const handleToggleDisable = (id: string) => {
+    setSeats((prev) =>
+      prev.map((seat) => (seat.id === id ? { ...seat, isDisabled: !seat.isDisabled } : seat)),
+    );
+  };
+
+  return (
+    <div className="flex flex-col items-center w-full">
+      <BlackBoard />
+      <p className="text-red-500 text-sm font-bold">
+        座席をクリックすると、席替えの時に生徒が座らない座席を設定できます。
+      </p>
+      <span className="text-wood-500 text-sm mt-1">座席がコの字などのクラスで利用して下さい。</span>
+      {/* 座席をグリッドレイアウトで配置していく styleは動的にクラスを得る書き方 */}
+      <div
+        className="grid gap-4 w-full max-w-5xl mx-auto p-4 justify-center"
+        style={{
+          gridTemplateColumns: `repeat(${cols},minmax(0,1fr))`,
+        }}
+      >
+        {/* 座席の配列を展開して並べていく */}
+        {seats.map((seat) => {
+          // 出力する
+          return (
+            <div
+              key={seat.id}
+              onClick={() => handleToggleDisable(seat.id)}
+              className={`relative aspect-[4/3] rounded-xl flex flex-col items-center justify-center p-2 cursor-pointer
+                      transition-all duration-300 transform border-b-4 hover:-translate-y-1 hover:shadow-lg
+                      ${seat.isDisabled ? 'bg-stone-200 border-stone-300' : 'bg-wood-100 border-wood-200 border-dashed'}`}
+            >
+              {seat.isDisabled ? (
+                <span className="text-stone-400 text-xs font-medium">
+                  <X className="w-[100%]" />
+                </span>
+              ) : (
+                <span className="text-wood-300 text-xs font-medium">空席</span>
+              )}
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+};
+
+export default ClassroomLayout;

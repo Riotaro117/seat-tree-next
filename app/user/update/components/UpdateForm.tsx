@@ -1,8 +1,8 @@
 'use client';
 import { useState } from 'react';
-import Button from '../../components/Button';
 import { signout, updateUser } from '@/lib/supabase/auth';
-import Spinner from '@/app/(with-header)/components/layouts/Spinner';
+import Spinner from '@/app/classroom/components/layouts/Spinner';
+import Button from '@/app/components/Button';
 
 const UpdateForm = () => {
   const [name, setName] = useState('');

@@ -14,15 +14,6 @@ export const subscribeToAuthStateChange = (
   return () => subscription.unsubscribe();
 };
 
-// ユーザー情報の取得
-type GetCurrentUserResult = { user: User };
-export const getCurrentUser = async (): Promise<GetCurrentUserResult> => {
-  const { data, error } = await createClient().auth.getUser();
-  if (error) throw new Error('ユーザー情報の取得に失敗しました。', { cause: error }); // エラーコードやHTTPステータスを確認できる
-  if (!data.user) throw new Error('ユーザー情報が取得できませんでした。');
-  return { user: data.user };
-};
-
 // ログイン
 type SigninResult = User & { userName: string | null };
 export const signin = async (email: string, password: string): Promise<SigninResult> => {

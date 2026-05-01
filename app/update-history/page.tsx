@@ -18,7 +18,7 @@ const UpdateHistory = () => {
               className="cursor-pointer items-center justify-center gap-2 px-4 py-2 rounded-xl font-bold transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed shadow-sm active:scale-95 bg-white text-wood-800 border-2 border-wood-200 hover:border-wood-400 hover:bg-wood-50"
               href={'/user/signin'}
             >
-              戻る
+              ログインへ
             </Link>
           </div>
           <div className="text text-wood-500">

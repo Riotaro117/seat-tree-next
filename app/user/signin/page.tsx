@@ -2,7 +2,6 @@ import { ExternalLink } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import SigninForm from './components/SigninForm';
-import SigninAnonymously from './components/SigninAnonymously';
 import { historyData } from '@/app/update-history/historyData';
 
 const Signin = () => {
@@ -27,10 +26,10 @@ const Signin = () => {
           <span>v {historyData.at(-1)?.version} 更新履歴</span>
           <ExternalLink className="w-6 h-6 text-white" />
         </Link>
-
         <SigninForm />
-        <SigninAnonymously />
-
+        <Link href={'/'} className="mx-auto cursor-pointer font-bold text-wood-500 mb-2">
+          トップページに戻る
+        </Link>
         <p className="text-wood-500 mt-8 text-sm">
           個人情報は、通信の暗号化とアクセス制御により
           <br />
