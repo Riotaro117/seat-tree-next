@@ -50,6 +50,9 @@ export const metadata: Metadata = {
       '配慮が必要な生徒関係も考えながら、ワンクリックで席替え。名簿管理・履歴保存・印刷までできる、先生の負担を減らす席替え支援アプリ。',
     images: ['/OGP_seat-tree.webp'],
   },
+  verification: {
+    google: '9kM_KKNEl-UcwVE8A1YpH1x_XHIEGGKL1uDPsenDy80',
+  },
 };
 
 export default function RootLayout({
@@ -63,9 +66,7 @@ export default function RootLayout({
         <meta name="theme-color" content="#dec29a" />
       </head>
       <body className="min-h-full flex flex-col">
-        <AuthProvider>
-          {children}
-        </AuthProvider>
+        <AuthProvider>{children}</AuthProvider>
       </body>
     </html>
   );
