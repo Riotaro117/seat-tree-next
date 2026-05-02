@@ -22,7 +22,7 @@ const SigninAnonymously = () => {
   };
   return (
     <Button onClick={handleSigninAnonymously} isLoading={isSigningIn} color="brown">
-      {isSigningIn ? <Spinner /> : '今すぐ始める！'}
+      {isSigningIn ? <Spinner /> : 'ゲストログイン'}
     </Button>
   );
 };
