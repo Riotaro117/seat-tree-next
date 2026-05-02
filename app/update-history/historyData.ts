@@ -38,4 +38,9 @@ export const historyData: History[] = [
     date: '2026.5.1',
     content: 'ユーザー登録ページの追加、メール認証の改善',
   },
+  {
+    version: '3.1.1',
+    date: '2026.5.3',
+    content: 'ゲストログインボタンの表示を変更',
+  },
 ];
