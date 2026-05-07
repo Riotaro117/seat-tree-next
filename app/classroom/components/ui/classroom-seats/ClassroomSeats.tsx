@@ -63,8 +63,8 @@ const ClassroomSeats: React.FC<ClassroomSeatsProps> = ({ contentRef, isPrinted }
     const seat2Idx = newSeats.findIndex((s) => s.id === id2);
     if (seat1Idx === -1 || seat2Idx === -1) return;
     const temp = newSeats[seat1Idx].studentId;
-    newSeats[seat1Idx].studentId = newSeats[seat2Idx].studentId;
-    newSeats[seat2Idx].studentId = temp;
+    newSeats[seat1Idx] = { ...newSeats[seat1Idx], studentId: newSeats[seat2Idx].studentId };
+    newSeats[seat2Idx] = { ...newSeats[seat2Idx], studentId: temp };
     setSeats(newSeats);
   };
 
@@ -119,7 +119,7 @@ const ClassroomSeats: React.FC<ClassroomSeatsProps> = ({ contentRef, isPrinted }
       </div>
       {/* ドラッグ中に指に追従するカード */}
       <DragOverlay>
-        {activeStudent ? <OverlayCard student={activeStudent}  /> : <OverlayCard student={null} />}
+        {activeStudent ? <OverlayCard student={activeStudent} /> : <OverlayCard student={null} />}
       </DragOverlay>
     </DragDropProvider>
   );
