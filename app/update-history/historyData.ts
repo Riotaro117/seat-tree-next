@@ -43,4 +43,9 @@ export const historyData: History[] = [
     date: '2026.5.3',
     content: 'ゲストログインボタンの表示を変更',
   },
+  {
+    version: '3.1.2',
+    date: '2026.5.8',
+    content: '相性の計算結果の最適化、処理速度の向上',
+  },
 ];
