@@ -17,7 +17,7 @@ export const DataProvider = ({ children }: { children: React.ReactNode }) => {
   const { seats, handleResizeSeats, handleResizeCols } = useSeatsStore();
 
   // supabaseのデータ取得
-  // useCallbackはメモ化し、依存配列が変わらない限り、同じ関数を参照し続けて、無限実行にならない
+  // useCallbackは関数をキャッシュし、依存配列が変わらない限り、同じ関数を参照し続けて、無限実行にならない
   const fetchData = useCallback(async () => {
     if (!user) {
       setIsDataLoading(false);

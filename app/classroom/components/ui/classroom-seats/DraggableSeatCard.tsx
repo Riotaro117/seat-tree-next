@@ -8,7 +8,6 @@ const DraggableSeatCard = ({ seat, student, hasConflict, isPrinted }: SeatCardPr
   const { ref, isDragging } = useDraggable({
     id: seat.id,
     disabled: seat.isDisabled,
-    data: { seat },
   });
 
   const { deskColor, nameColor } = getStudentDeskStyle(student, seat, hasConflict);
