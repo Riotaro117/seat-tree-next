@@ -1,17 +1,16 @@
 'use client';
 import { useSeatsStore } from '@/app/store/useSeatsStore';
 import { ADJACENT_OFFSETS } from '@/app/utils/constants';
-import type {  Student } from '@/lib/type';
+import type { Student } from '@/lib/type';
 import { useStudentsStore } from '@/app/store/useStudentsStore';
-import { RefObject, useMemo, useState } from 'react'; // useMemo を追加
+import { RefObject, useMemo } from 'react'; // useMemo を追加
 import { useColsStore } from '@/app/store/useColsStore';
 import { useTotalSeatsStore } from '@/app/store/useTotalSeatsStore';
 import { useFrontRowLimitStore } from '@/app/store/useFrontRowLimitStore';
-import DroppableSeat from './DroppableSeat';
 import DraggableSeatCard from './DraggableSeatCard';
-import OverlayCard from './OverlayCard';
-import { DragDropProvider, DragOverlay } from '@dnd-kit/react';
+import { DragDropProvider } from '@dnd-kit/react';
 import BlackBoard from '../BlackBoard';
+import DroppableSeatCard from './DroppableSeatCard';
 
 type ClassroomSeatsProps = {
   contentRef: RefObject<HTMLDivElement | null>;
@@ -25,7 +24,6 @@ const ClassroomSeats: React.FC<ClassroomSeatsProps> = ({ contentRef, isPrinted }
   const { totalSeats } = useTotalSeatsStore();
   const { frontRowLimit } = useFrontRowLimitStore();
 
-  const [activeSeatId, setActiveSeatId] = useState<string | null>(null);
   // students が変わったときだけ再生成（再レンダリングごとにnewMapが実行されるのを防ぐ）
   // 上記のuseStateなどが変化するごとに再計算されてしまう。
   // Mapはキーにどんな値でも使える、オブジェクトだがプロトタイプがない
@@ -71,38 +69,32 @@ const ClassroomSeats: React.FC<ClassroomSeatsProps> = ({ contentRef, isPrinted }
     );
   }, [seats, studentMap, seatMap, cols, totalSeats, frontRowLimit]);
 
+  // ドラッグ&ドロップで座席を交換する
   const handleSwap = (id1: string, id2: string) => {
+    // 座席を交換するためにグローバルステートをシャローコピーして、ドラッグ、ドロップした座席のインデックスを得る
     const newSeats = [...seats];
     const seat1Idx = newSeats.findIndex((s) => s.id === id1);
     const seat2Idx = newSeats.findIndex((s) => s.id === id2);
     if (seat1Idx === -1 || seat2Idx === -1) return;
+
+    // 入れ替わった座席の情報を更新するために、取得したインデックスを元に生徒のidのみを更新する
     const temp = newSeats[seat1Idx].studentId;
     newSeats[seat1Idx] = { ...newSeats[seat1Idx], studentId: newSeats[seat2Idx].studentId };
     newSeats[seat2Idx] = { ...newSeats[seat2Idx], studentId: temp };
     setSeats(newSeats);
   };
 
-  // activeSeatId が変わったときだけ再取得
-  const activeStudent = useMemo(() => {
-    if (!activeSeatId) return null;
-    const activeSeat = seats.find((s) => s.id === activeSeatId);
-    return activeSeat?.studentId ? (studentMap.get(activeSeat.studentId) ?? null) : null;
-  }, [activeSeatId, seats, studentMap]);
-
   return (
     <DragDropProvider
-      onDragStart={(event) => {
-        setActiveSeatId((event.operation.source?.id as string) ?? null);
-      }}
       onDragEnd={(event) => {
         if (!event.canceled) {
+          // ドラッグ、ドロップされたそれぞれの要素を取得して交換できるようにしている
           const sourceId = event.operation.source?.id as string;
           const targetId = event.operation.target?.id as string;
           if (sourceId && targetId && sourceId !== targetId) {
             handleSwap(sourceId, targetId);
           }
         }
-        setActiveSeatId(null);
       }}
     >
       <div ref={contentRef} className="flex flex-col items-center w-full">
@@ -116,7 +108,7 @@ const ClassroomSeats: React.FC<ClassroomSeatsProps> = ({ contentRef, isPrinted }
             const hasConflict = conflictSet.has(seat.id); // Set は一発で見つかる（配列は先頭から1件ずつ探す）
 
             return (
-              <DroppableSeat
+              <DroppableSeatCard
                 key={seat.id}
                 seat={seat}
                 student={student}
@@ -129,14 +121,11 @@ const ClassroomSeats: React.FC<ClassroomSeatsProps> = ({ contentRef, isPrinted }
                   hasConflict={hasConflict}
                   isPrinted={isPrinted}
                 />
-              </DroppableSeat>
+              </DroppableSeatCard>
             );
           })}
         </div>
       </div>
-      <DragOverlay>
-        <OverlayCard student={activeStudent ?? null} />
-      </DragOverlay>
     </DragDropProvider>
   );
 };
