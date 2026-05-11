@@ -2,7 +2,7 @@
 import type { SeatCardProps } from '@/lib/type';
 import { useDroppable } from '@dnd-kit/react';
 
-const DroppableSeat = ({ seat, children }: SeatCardProps & { children: React.ReactNode }) => {
+const DroppableSeatCard = ({ seat, children }: SeatCardProps & { children: React.ReactNode }) => {
   const { ref, isDropTarget } = useDroppable({
     id: seat.id,
     disabled: seat.isDisabled, // 使用不可の座席はドロップ対象にしない
@@ -21,4 +21,4 @@ const DroppableSeat = ({ seat, children }: SeatCardProps & { children: React.Rea
   );
 };
 
-export default DroppableSeat;
+export default DroppableSeatCard;
