@@ -48,4 +48,9 @@ export const historyData: History[] = [
     date: '2026.5.8',
     content: '相性の計算結果の最適化、処理速度の向上',
   },
+  {
+    version: '3.2.0',
+    date: '2026.5.12',
+    content: 'ドラッグ&ドロップの挙動の変更、処理の最適化',
+  },
 ];
