@@ -18,7 +18,7 @@ const DraggableSeatCard = ({ seat, student, hasConflict, isPrinted }: SeatCardPr
       className={`
         aspect-[4/3] rounded-xl flex flex-col items-center justify-center p-2
         border-b-4 transition-all duration-200
-        ${isDragging ? 'opacity-40 scale-95 cursor-grabbing' : 'cursor-grab'}
+        ${isDragging ? 'opacity-60 scale-150 cursor-grabbing' : 'cursor-grab'}
         ${deskColor}
       `}
     >
