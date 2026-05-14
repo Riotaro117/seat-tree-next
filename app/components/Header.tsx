@@ -21,7 +21,7 @@ const Header = () => {
         <div className="flex items-center justify-center gap-2 w-full sm:w-[60%]">
           <Link
             href="/user/signin"
-            className="cursor-pointer flex items-center justify-center px-4 py-3 rounded-xl font-bold transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed shadow-sm active:scale-95 text-white w-full text-sm sm:text-md md:text-xl bg-lime-600 hover:bg-lime-700 shadow-lime-800/20"
+            className="cursor-pointer flex items-center justify-center px-4 py-3 rounded-xl font-bold transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed shadow-sm active:scale-95 text-white w-full text-sm sm:text-md md:text-xl bg-emerald-600 hover:bg-emerald-800"
           >
             ログイン
           </Link>
