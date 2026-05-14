@@ -4,7 +4,7 @@ type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
 };
 
 const colorStyles = {
-  green: 'bg-lime-600 hover:bg-lime-700 shadow-lime-800/20',
+  green: 'bg-emerald-600 hover:bg-emerald-800',
   brown: 'bg-wood-600 hover:bg-wood-700 shadow-wood-800/20',
 };
 
