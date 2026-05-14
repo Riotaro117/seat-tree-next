@@ -36,7 +36,7 @@ const UpdateHistory = () => {
                   key={history.version}
                   className="mt-5 text-wood-500 flex flex-col items-start gap-2"
                 >
-                  <span className="p-3 bg-lime-600 rounded-lg text-wood-100 text-left">
+                  <span className="p-3 bg-emerald-600 rounded-lg text-wood-100 text-left font-bold">
                     v{history.version} <span className="text-sm">[{history.date}更新]</span>
                   </span>
                   <p className="text-wood-800 bg-wood-50 p-3 rounded-lg w-full text-left">

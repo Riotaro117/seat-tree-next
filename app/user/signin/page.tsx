@@ -6,7 +6,7 @@ import { historyData } from '@/app/update-history/historyData';
 
 const Signin = () => {
   return (
-    <div className="min-h-screen flex items-center justify-center bg-lime-50 p-4">
+    <div className="min-h-screen flex items-center justify-center bg-emerald-50 p-4">
       <div className="bg-white p-8 rounded-3xl shadow-xl max-w-md w-full border-4 border-wood-200 text-center">
         <div className="w-50 h-50 mx-auto sm:w-70 sm:h-70">
           <Image
