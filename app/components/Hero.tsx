@@ -57,6 +57,7 @@ const Hero = () => {
                 loop
                 muted
                 playsInline
+                preload='metadata'
                 className="w-full h-auto aspect-video rounded-[1rem] sm:rounded-[2rem] sm:rounded-xl object-cover shadow-sm bg-wood-50 relative z-20 border border-wood-100/50 transition-transform duration-700 ease-in-out hover:scale-[1.3]"
                 aria-label="Seat Treeのデモ動画"
               >
