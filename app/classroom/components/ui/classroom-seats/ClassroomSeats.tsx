@@ -1,6 +1,5 @@
 'use client';
 import { useSeatsStore } from '@/app/store/useSeatsStore';
-import { ADJACENT_OFFSETS } from '@/app/utils/constants';
 import type { Student } from '@/lib/type';
 import { useStudentsStore } from '@/app/store/useStudentsStore';
 import { RefObject, useMemo } from 'react'; // useMemo を追加
@@ -11,6 +10,7 @@ import DraggableSeatCard from './DraggableSeatCard';
 import { DragDropProvider } from '@dnd-kit/react';
 import BlackBoard from '../BlackBoard';
 import DroppableSeatCard from './DroppableSeatCard';
+import { ADJACENT_OFFSETS } from '@/app/utils/seatingLogics/constants';
 
 type ClassroomSeatsProps = {
   contentRef: RefObject<HTMLDivElement | null>;

@@ -5,7 +5,6 @@ import { useLayoutsStore } from '@/app/store/useLayoutsStore';
 import { useSeatsStore } from '@/app/store/useSeatsStore';
 import { useStudentsStore } from '@/app/store/useStudentsStore';
 import { useTotalSeatsStore } from '@/app/store/useTotalSeatsStore';
-import { generateSeatingChart } from '@/app/utils/seatingLogic';
 import type { ClassroomLayout } from '@/lib/type';
 import { useRef, useState } from 'react';
 import { useReactToPrint } from 'react-to-print';
@@ -14,6 +13,7 @@ import { useFrontRowLimitStore } from '@/app/store/useFrontRowLimitStore';
 import { useRouter } from 'next/navigation';
 import ClassroomSeats from '../ui/classroom-seats/ClassroomSeats';
 import { createLayout } from '@/lib/supabase/layouts';
+import { generateSeatingChart } from '@/app/utils/seatingLogics/generateSeatingChart';
 
 const MainContents = () => {
   const { cols } = useColsStore();

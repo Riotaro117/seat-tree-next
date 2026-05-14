@@ -1,115 +1,8 @@
 import { Seat, Student } from '@/lib/type';
-import { ADJACENT_OFFSETS } from './constants';
-
-/**
- * フィッシャーイェーツのアルゴリズム
- */
-function shuffle<T>(array: T[]): T[] {
-  // 配列をコピーする
-  const arr = [...array];
-  // 一番後ろから順番に前に進む
-  for (let i = arr.length - 1; i > 0; i--) {
-    // 0~1つ手前の中から選ぶ
-    const j = Math.floor(Math.random() * (i + 1));
-    // 一番後ろの数字と選ばれた数字を交換する
-    [arr[i], arr[j]] = [arr[j], arr[i]];
-  }
-  // 配列を出力する
-  return arr;
-}
-
-/**
- * 絶対にしてほしくない違反のチェック→後に高得点にする（前列配慮、相性が悪い同士）
- */
-function countHardConflicts(
-  assignments: Map<number, string | null>, // 全体の座席配置のこと
-  studentsMap: Map<string, Student>, // Mapを使うとfindせず高速アクセス可能
-  rows: number,
-  cols: number,
-  frontRowLimit: number,
-): number {
-  // スコアの設定
-  let conflicts = 0;
-  // 全席を一つずつチェック(rows * colsで全席)
-  for (const [idx, studentId] of assignments.entries()) {
-    // 生徒のIDが存在しないときはスキップ
-    if (!studentId) continue;
-    // 座席のidから生徒情報を取得
-    const student = studentsMap.get(studentId);
-    if (!student) continue;
-
-    // 現在座っている座席の位置情報
-    const r = Math.floor(idx / cols);
-    const c = idx % cols;
-
-    // 1. 視力チェック、違反なら加点
-    const FRONT_ROWS = frontRowLimit;
-    if (student.needsFrontRow && r >= FRONT_ROWS) {
-      conflicts++;
-    }
-    // 2. 相性が悪いチェック
-    // 左右上下の座席をforで順番に一つずつ定義する
-    for (const offset of ADJACENT_OFFSETS) {
-      // 隣の席の座標
-      const nr = r + offset.r;
-      const nc = c + offset.c;
-      // 教室の外に出ていないかチェック、行、列が０以上かつ最大値未満
-      if (nr >= 0 && nr < rows && nc >= 0 && nc < cols) {
-        // 2次元→1次元に変換、１行にcols個並んでいるなら、何行分スキップしたか*cols＋その行の何番目か
-        const neighborIndex = nr * cols + nc;
-        // 隣の人のidを取得
-        const neighborId = assignments.get(neighborIndex);
-        if (neighborId) {
-          if (student.badChemistryWith.includes(neighborId)) conflicts++;
-          // お互いに相性が悪いなら二重チェックになるけど、加点したままで良い
-        }
-      }
-    }
-  }
-  // 点数を出力
-  return conflicts;
-}
-
-/**
- * 隣同士が同じ性別か確認するゆるいチェック→得点は低めで良い
- */
-function countGenderConflicts(
-  assignments: Map<number, string | null>, // ()で囲むこと忘れがち
-  studentsMap: Map<string, Student>,
-  rows: number,
-  cols: number,
-): number {
-  // スコアの設定
-  let conflicts = 0;
-  // 二重のforは外側実行→内側全部実行→外側→内側全部実行の繰り返し
-  for (let r = 0; r < rows; r++) {
-    // 水平方向のチェック
-    for (let c = 0; c < cols - 1; c++) {
-      // 座席のindexと右隣の座席のindexを定義
-      const idx = r * cols + c;
-      const nextidx = r * cols + (c + 1);
-      // 座席に現在の生徒idと隣の生徒情idを定義
-      const studentId = assignments.get(idx);
-      const nextStudentId = assignments.get(nextidx);
-      // 隣同士生徒がいるのであれば
-      if (studentId && nextStudentId) {
-        // 現在と隣の生徒を取得
-        const student = studentsMap.get(studentId);
-        const nextStudent = studentsMap.get(nextStudentId);
-        // 隣同士の生徒がいて、性別が同じ、otherを含まないのであれば
-        if (
-          student &&
-          nextStudent &&
-          student.gender != 'other' &&
-          student.gender === nextStudent.gender
-        )
-          conflicts++;
-      }
-    }
-  }
-  // 点数を出力
-  return conflicts;
-}
+import { shuffle } from './shuffle';
+import { countHardConflicts } from './countHardConflicts';
+import { countGenderConflicts } from './countGenderConflicts';
+import { ATTEMPTS, HARD_CONFLICT_WEIGHT } from './constants';
 
 /**
 制約をもとに席替えをし、点数をつける。
@@ -164,8 +57,6 @@ export const generateSeatingChart = (
   // 無限大にしておくことで、後にスコアが存在するかどうかで使える
   let minScore = Infinity;
 
-  // 500回ランダムに席替えをして、スコアが最小のものを見つける
-  const ATTEMPTS = 500;
   // 500回繰り返す
   for (let attempt = 0; attempt < ATTEMPTS; attempt++) {
     // これからの処理で座らせていく座席のこと。
@@ -207,7 +98,7 @@ export const generateSeatingChart = (
     const hardConflicts = countHardConflicts(assignments, studentMap, rows, cols, frontRowLimit);
     const genderConflicts = countGenderConflicts(assignments, studentMap, rows, cols);
     // 厳しい制約には1000倍の採点をする
-    const score = hardConflicts * 1000 + genderConflicts;
+    const score = hardConflicts * HARD_CONFLICT_WEIGHT + genderConflicts;
     // 最小のスコアより良いスコアかどうか
     if (score < minScore) {
       // 現在のスコアを最小のスコアにして考える

@@ -26,7 +26,7 @@ const Hero = () => {
       <div className="max-w-6xl mx-auto w-full flex flex-col lg:flex-row items-center gap-3 lg:gap-16 relative z-20">
         {/* メインコピー部分 */}
         <div className="w-full lg:w-[35%] text-center lg:text-left">
-          <h2 className="text-4xl sm:text-5xl md:text-4xl 2xl:text-6xl font-bold font-serif text-wood-800 leading-[1.2] mb-6 sm:mb-8 tracking-tight">
+          <h2 className="text-4xl sm:text-5xl md:text-4xl 2xl:text-6xl font-serif text-wood-800 leading-[1.2] mb-6 sm:mb-8 tracking-tight">
             配慮できる
             <br />
             席替えアプリ
@@ -49,18 +49,21 @@ const Hero = () => {
         {/* 動画ヒーロー部分 */}
         <div className="w-full lg:w-[65%] relative">
           {/* グラスモーフィズムなフレーム */}
-          <div className="bg-wood-300 p-2 sm:p-4 md:p-6 rounded-xl md:rounded-[2rem] shadow-2xl shadow-wood-900/10 border border-white/80 backdrop-blur-xl relative overflow-hidden ">
-            <video
-              src="/hero_movie.mov"
-              autoPlay
-              loop
-              muted
-              playsInline
-              className="w-full h-auto aspect-video rounded-xl md:rounded-[2rem] object-cover shadow-sm bg-wood-50 relative z-20 border border-wood-100/50 transition-transform duration-700 ease-out hover:scale-[1.5]"
-              aria-label="Seat Treeのデモ動画"
-            >
-              ご使用のブラウザは動画の再生に対応していません。
-            </video>
+          <div className="bg-emerald-700 p-1 sm:p-2 rounded-[2rem] shadow-2xl shadow-emerald-700/10 border border-white/80 backdrop-blur-xl">
+            <div className="bg-gray-800 p-2 sm:p-5 rounded-[2rem] shadow-2xl shadow-gray-900/10 border border-emerald-800/80 backdrop-blur-xl overflow-hidden">
+              <video
+                src="/hero_movie.mov"
+                autoPlay
+                loop
+                muted
+                playsInline
+                preload='metadata'
+                className="w-full h-auto aspect-video rounded-[1rem] sm:rounded-[2rem] sm:rounded-xl object-cover shadow-sm bg-wood-50 relative z-20 border border-wood-100/50 transition-transform duration-700 ease-in-out hover:scale-[1.3]"
+                aria-label="Seat Treeのデモ動画"
+              >
+                ご使用のブラウザは動画の再生に対応していません。
+              </video>
+            </div>
           </div>
         </div>
       </div>

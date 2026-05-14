@@ -1,0 +1,58 @@
+import {
+  Sparkles,
+  MousePointerClick,
+  FileSpreadsheet,
+  LayoutGrid,
+  History,
+  Printer,
+} from 'lucide-react';
+export const appFeatures = [
+  {
+    icon: Sparkles,
+    title: '自動席替え生成',
+    desc: '配慮条件を考慮した\n最適な座席を自動作成',
+    color: 'text-emerald-700',
+    borderColor: 'border-emerald-200',
+    iconColor: 'text-yellow-200',
+  },
+  {
+    icon: MousePointerClick,
+    title: 'ドラッグ＆ドロップで\nかんたん調整',
+    desc: '直感的な操作で\nらくらく微調整',
+    color: 'text-blue-700',
+    borderColor: 'border-blue-200',
+    iconColor: 'text-amber-500',
+  },
+  {
+    icon: FileSpreadsheet,
+    title: 'Excelから\n名簿を一括登録',
+    desc: '学校の名簿データを\nそのまま活用',
+    color: 'text-orange-500',
+    borderColor: 'border-orange-200',
+    iconColor: 'text-green-600',
+  },
+  {
+    icon: LayoutGrid,
+    title: '教室レイアウトを\n自由にカスタマイズ',
+    desc: '列数・行数や前列範囲も\n自由に設定可能',
+    color: 'text-emerald-800',
+    borderColor: 'border-green-200',
+    iconColor: 'text-green-500',
+  },
+  {
+    icon: History,
+    title: '履歴を保存・管理',
+    desc: '過去の席替えを保存して\nいつでも確認',
+    color: 'text-purple-700',
+    borderColor: 'border-purple-200',
+    iconColor: 'text-gray-700',
+  },
+  {
+    icon: Printer,
+    title: '印刷・PDF出力',
+    desc: 'そのまま印刷できる\nきれいな座席表',
+    color: 'text-blue-800',
+    borderColor: 'border-blue-200',
+    iconColor: 'text-gray-800',
+  },
+];
