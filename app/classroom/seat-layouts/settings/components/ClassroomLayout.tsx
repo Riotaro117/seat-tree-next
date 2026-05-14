@@ -17,10 +17,10 @@ const ClassroomLayout = () => {
   return (
     <div className="flex flex-col items-center w-full">
       <BlackBoard />
-      <p className="text-red-500 text-sm font-bold">
+      <p className="text-red-500 text-sm sm:text-lg font-bold">
         座席をクリックすると、席替えの時に生徒が座らない座席を設定できます。
       </p>
-      <span className="text-wood-500 text-sm mt-1">座席がコの字などのクラスで利用して下さい。</span>
+      <span className="text-red-500 text-sm mt-1">座席がコの字などのクラスで利用して下さい。</span>
       {/* 座席をグリッドレイアウトで配置していく styleは動的にクラスを得る書き方 */}
       <div
         className="grid gap-4 w-full max-w-5xl mx-auto p-4 justify-center"
@@ -37,14 +37,14 @@ const ClassroomLayout = () => {
               onClick={() => handleToggleDisable(seat.id)}
               className={`relative aspect-[4/3] rounded-xl flex flex-col items-center justify-center p-2 cursor-pointer
                       transition-all duration-300 transform border-b-4 hover:-translate-y-1 hover:shadow-lg
-                      ${seat.isDisabled ? 'bg-stone-200 border-stone-300' : 'bg-wood-100 border-wood-200 border-dashed'}`}
+                      ${seat.isDisabled ? 'bg-stone-200 border-stone-400' : 'bg-wood-100 border-wood-300 border-dashed'}`}
             >
               {seat.isDisabled ? (
-                <span className="text-stone-400 text-xs font-medium">
+                <span className="text-stone-900 text-xs font-medium">
                   <X className="w-[100%]" />
                 </span>
               ) : (
-                <span className="text-wood-300 text-xs font-medium">空席</span>
+                <span className="text-wood-300 text-xs sm:text-lg font-serif">空席</span>
               )}
             </div>
           );
