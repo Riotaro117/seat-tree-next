@@ -1,4 +1,5 @@
-import { CheckCircle2, Users, Settings2, Printer } from 'lucide-react';
+import { Sparkles, MousePointerClick, FileSpreadsheet, LayoutGrid, History, Printer } from 'lucide-react';
+
 const Introduction = () => {
   return (
     <section className="py-28 px-6 bg-wood-50">
@@ -7,40 +8,72 @@ const Introduction = () => {
           <h3 className="text-3xl md:text-4xl font-bold font-serif text-wood-800 mb-4">
             Seat Tree でできること
           </h3>
-          <p className="text-wood-600 text-lg">先生の業務を効率化する4つの機能</p>
+          <p className="text-wood-600 text-lg">先生の業務を効率化する6つの機能</p>
         </div>
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {[
             {
-              icon: CheckCircle2,
-              title: 'ワンクリック席替え',
-              desc: '条件を考慮した上で、ランダムな席替えを瞬時に実行します。',
+              icon: Sparkles,
+              title: '自動席替え生成',
+              desc: '配慮条件を考慮した\n最適な座席を自動作成',
+              color: 'text-emerald-700',
+              borderColor: 'border-emerald-200',
+              iconColor: 'text-yellow-200',
             },
             {
-              icon: Users,
-              title: '名簿管理',
-              desc: 'クラスの生徒名簿を簡単に登録・編集・管理できます。',
+              icon: MousePointerClick,
+              title: 'ドラッグ＆ドロップで\nかんたん調整',
+              desc: '直感的な操作で\nらくらく微調整',
+              color: 'text-blue-700',
+              borderColor: 'border-blue-200',
+              iconColor: 'text-amber-500',
             },
             {
-              icon: Settings2,
-              title: '配慮関係の設定',
-              desc: '視力や人間関係などの特別な配慮事項を事前に設定可能。',
+              icon: FileSpreadsheet,
+              title: 'Excelから\n名簿を一括登録',
+              desc: '学校の名簿データを\nそのまま活用',
+              color: 'text-orange-500',
+              borderColor: 'border-orange-200',
+              iconColor: 'text-green-600',
+            },
+            {
+              icon: LayoutGrid,
+              title: '教室レイアウトを\n自由にカスタマイズ',
+              desc: '列数・行数や前列範囲も\n自由に設定可能',
+              color: 'text-emerald-800',
+              borderColor: 'border-green-200',
+              iconColor: 'text-green-500',
+            },
+            {
+              icon: History,
+              title: '履歴を保存・管理',
+              desc: '過去の席替えを保存して\nいつでも確認',
+              color: 'text-purple-700',
+              borderColor: 'border-purple-200',
+              iconColor: 'text-gray-700',
             },
             {
               icon: Printer,
-              title: '履歴保存・印刷',
-              desc: '過去の席替え履歴を保存し、そのまま綺麗に印刷できます。',
+              title: '印刷・PDF出力',
+              desc: 'そのまま印刷できる\nきれいな座席表',
+              color: 'text-blue-800',
+              borderColor: 'border-blue-200',
+              iconColor: 'text-gray-800',
             },
           ].map((feature, i) => (
             <div
               key={i}
-              className="bg-white p-8 rounded-[2rem] shadow-sm border border-wood-100 hover:-translate-y-2 hover:shadow-xl hover:shadow-wood-200/50 transition-all duration-300"
+              className={`bg-white px-4 py-8 rounded-2xl shadow-sm border-2 ${feature.borderColor} hover:-translate-y-1 hover:shadow-md transition-all duration-300 flex flex-col items-center justify-between text-center min-h-[260px]`}
             >
-              <div className="w-14 h-14 bg-wood-100 text-wood-700 rounded-2xl flex items-center justify-center mb-6">
-                <feature.icon className="w-7 h-7" />
+              <h4 className={`text-lg md:text-xl font-bold ${feature.color} mb-6 whitespace-pre-wrap leading-snug`}>
+                {feature.title}
+              </h4>
+              <div className="flex-1 flex items-center justify-center mb-6">
+                <feature.icon className={`w-16 h-16 ${feature.iconColor}`} strokeWidth={1.5} />
               </div>
-              <h4 className="text-xl font-bold text-wood-800 mb-3">{feature.title}</h4>
-              <p className="text-wood-600 leading-relaxed">{feature.desc}</p>
+              <p className="text-gray-800 text-sm md:text-sm font-medium whitespace-pre-wrap leading-relaxed">
+                {feature.desc}
+              </p>
             </div>
           ))}
         </div>
