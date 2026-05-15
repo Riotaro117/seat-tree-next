@@ -48,7 +48,7 @@ Seat Treeは、教育現場での席替え業務を効率化するために開�
 
 1.  **リポジトリのクローン**
     ```bash
-    git clone https://github.com/YourUsername/seat-tree-next.git
+    git clone https://github.com/Riotaro117/seat-tree-next.git
     cd seat-tree-next
     ```
 
@@ -81,15 +81,16 @@ Next.js の App Router の機能を活用し、機能ベースで直感的な構
 ```plaintext
 seat-tree-next/
 ├── app/                      # Next.js App Routerのエントリーポイント
-│   ├── (with-header)/        # 共通ヘッダーを持つ保護された画面グループ
+│   ├── classroom/            # 保護された画面グループ（席替え機能のメイン）
 │   │   ├── components/       # メイン画面や座席UIのコンポーネント
 │   │   ├── seat-layouts/     # レイアウト設定・履歴管理ページ
 │   │   └── students/         # 生徒名簿管理・Excelファイルインポート
+│   ├── components/           # ランディングページや共通で使用するUIコンポーネント
 │   ├── providers/            # AuthProvider, DataProvider (全体への状態提供)
 │   ├── store/                # Jotaiを用いたグローバル状態定義（seats, students, layouts等）
 │   ├── update-history/       # アプリの更新履歴ページ
 │   ├── user/                 # サインイン・ユーザー情報更新ページ
-│   └── utils/                # 席替えアルゴリズムなどのロジック（seatingLogic.tsなど）
+│   └── utils/                # 席替えアルゴリズムなどのロジック（seatingLogics/など）
 ├── lib/                      # 汎用的な設定や型定義
 │   ├── supabase/             # Supabaseクライアント・CRUD操作の実装
 │   ├── database.types.ts     # SupabaseのDBスキーマ型定義
