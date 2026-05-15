@@ -7,12 +7,16 @@ const kiwiMaru = Kiwi_Maru({
   variable: '--font-kiwi-maru',
   subsets: ['latin'],
   weight: ['300', '400', '500'],
+  display: 'swap',
+  preload: false,
 });
 
 const zenMaruGothic = Zen_Maru_Gothic({
   variable: '--font-zen-maru-gothic',
   subsets: ['latin'],
   weight: ['300', '400', '500', '700', '900'],
+  display: 'swap',
+  preload: false,
 });
 
 export const metadata: Metadata = {
