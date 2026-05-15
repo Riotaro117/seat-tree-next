@@ -1,6 +1,7 @@
-import { atom, useAtom } from 'jotai';
+import { useAtom } from 'jotai';
+import { atomWithStorage } from 'jotai/utils';
 
-const colsStore = atom<number>(6);
+const colsStore = atomWithStorage<number>('cols', 6);
 
 export const useColsStore = () => {
   const [cols, setCols] = useAtom(colsStore);

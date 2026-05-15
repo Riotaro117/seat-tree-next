@@ -1,6 +1,7 @@
-import { atom, useAtom } from 'jotai';
+import { useAtom } from 'jotai';
+import { atomWithStorage } from 'jotai/utils';
 
-const totalSeatsStore = atom<number>(30);
+const totalSeatsStore = atomWithStorage<number>('totalSeats', 30);
 
 export const useTotalSeatsStore = () => {
   const [totalSeats, setTotalSeats] = useAtom(totalSeatsStore);
