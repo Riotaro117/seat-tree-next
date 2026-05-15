@@ -15,7 +15,7 @@ const SettingButtons = () => {
 
   return (
     <>
-      <div className=" p-5 mt-2 sticky top-20 bg-wood-50/90 z-10 rounded-lg ">
+      <div className="p-5 mt-2 mb-2 sticky top-20 bg-wood-100/90 z-10 rounded-lg ">
         <div className="flex flex-col justify-center items-center gap-5 sm:flex-row">
           <div className="flex items-center justify-center gap-2 bg-wood-50 px-3 py-1 rounded-lg border border-wood-100">
             <span className="text-sm font-bold text-wood-600">座席数:</span>

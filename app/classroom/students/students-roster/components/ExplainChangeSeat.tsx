@@ -9,17 +9,17 @@ const ExplainChangeSeat = () => {
       <h3 className="p-1 w-fit font-bold bg-wood-50 border border-wood-200 rounded-lg">
         席替えについて
       </h3>
-      <ul className="flex flex-col gap-3 mt-2">
-        <li className="text-sm">
+      <ul className="flex flex-col gap-3 mt-2 font-bold">
+        <li className="text-md">
           1. 基本的に男女が交互に座ります。
           <br />
           <span className="text-red-400">( 比率が均等でない場合は同性で座ることもあります。 )</span>
         </li>
-        <li className="text-sm">
+        <li className="text-md">
           2. 前列希望は、前から
           <select
             value={frontRowLimit}
-            className="cursor-pointer p-2 w-27 text-sm border border-wood-200 bg-white rounded-lg"
+            className="cursor-pointer p-2 w-27 text-md border border-wood-200 bg-white rounded-lg"
             onChange={(e) => setFrontRowLimit(Number(e.target.value))}
           >
             <option value={1}>1列目まで</option>
@@ -30,7 +30,7 @@ const ExplainChangeSeat = () => {
           <br />
           <span className="text-red-400">( 席数に対して希望者が超過するとできません。 )</span>
         </li>
-        <li className="text-sm">3. NG設定は、NG相手と前後左右を避けて座ります。</li>
+        <li className="text-md">3. NG設定は、NG相手と前後左右を避けて座ります。</li>
       </ul>
     </div>
   );

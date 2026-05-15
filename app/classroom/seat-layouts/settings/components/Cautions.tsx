@@ -12,7 +12,7 @@ const Cautions: React.FC<CautionsProps> = ({ enabledSeatsCount }) => {
   return (
     <>
       {enabledSeatsCount < students.length && (
-        <div className=" bg-wood-50 px-3 py-1 rounded-lg border border-wood-100 mt-5 mb-5">
+        <div className=" bg-yellow-300 px-3 py-1 rounded-lg border border-wood-100 mt-5 mb-5">
           <p className="flex justify-center items-center gap-3 text-red-500">
             <AlertTriangle className="w-6 h-6" />
             <span className='text-sm md:text-lg'>必ず、利用できる座席数が生徒の数以上になるようにして下さい。</span>
