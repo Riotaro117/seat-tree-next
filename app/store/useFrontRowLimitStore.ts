@@ -1,6 +1,7 @@
-import { atom, useAtom } from 'jotai';
+import { useAtom } from 'jotai';
+import { atomWithStorage } from 'jotai/utils';
 
-const frontRowLimitAtom = atom<number>(2);
+const frontRowLimitAtom = atomWithStorage<number>('frontRowLimit', 2);
 
 export const useFrontRowLimitStore = () => {
   const [frontRowLimit, setFrontRowLimit] = useAtom(frontRowLimitAtom);

@@ -1,9 +1,11 @@
 import type { Seat } from '@/lib/type';
-import { atom, useAtom } from 'jotai';
+import { useAtom } from 'jotai';
 import { useTotalSeatsStore } from './useTotalSeatsStore';
 import { useColsStore } from './useColsStore';
+import { atomWithStorage } from 'jotai/utils';
 
-const seatsStore = atom<Seat[]>([]);
+// ローカルストレージに保存
+const seatsStore = atomWithStorage<Seat[]>('seat', []);
 
 export const useSeatsStore = () => {
   const [seats, setSeats] = useAtom(seatsStore);
