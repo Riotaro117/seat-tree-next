@@ -5,7 +5,7 @@ import { useColsStore } from './useColsStore';
 import { atomWithStorage } from 'jotai/utils';
 
 // ローカルストレージに保存
-const seatsStore = atomWithStorage<Seat[]>('seats', []);
+const seatsStore = atomWithStorage<Seat[]>('seats', [], undefined, { getOnInit: true });
 
 export const useSeatsStore = () => {
   const [seats, setSeats] = useAtom(seatsStore);

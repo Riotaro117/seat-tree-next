@@ -10,11 +10,11 @@ import { fetchLayouts } from '@/lib/supabase/layouts';
 import SpinnerWhole from '../classroom/components/layouts/SpinnerWhole';
 
 export const DataProvider = ({ children }: { children: React.ReactNode }) => {
-  const [isDataLoading, setIsDataLoading] = useState(true); //初期状態をtrueにすることでデータ取得前のHTMLが見えなくなる
+  const [isDataLoading, setIsDataLoading] = useState(true); //初期状態をtrueにすることでデータ取得前のHTMLが見えなくなる→spinner
   const { isLoading, user } = useAuthState();
   const { setStudents } = useStudentsStore();
   const { setLayouts } = useLayoutsStore();
-  const { seats, handleResizeSeats, handleResizeCols } = useSeatsStore();
+  const { seats, handleResizeSeats } = useSeatsStore();
 
   // supabaseのデータ取得
   // useCallbackは関数をキャッシュし、依存配列が変わらない限り、同じ関数を参照し続けて、無限実行にならない
@@ -54,11 +54,11 @@ export const DataProvider = ({ children }: { children: React.ReactNode }) => {
   }, [isLoading, fetchData]);
 
   useEffect(() => {
-    if (!isDataLoading && seats.length === 0) {
+    if (isDataLoading) return;
+    if (seats.length === 0) {
       handleResizeSeats(30);
-      handleResizeCols(6, 30);
     }
-  }, [isDataLoading]);
+  }, [isDataLoading, seats.length, handleResizeSeats]);
 
   return <>{isLoading || isDataLoading ? <SpinnerWhole /> : children}</>;
 };
