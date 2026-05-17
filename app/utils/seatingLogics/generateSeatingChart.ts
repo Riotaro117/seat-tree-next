@@ -26,7 +26,7 @@ export const generateSeatingChart = (
     throw new Error('使用可能な座席が少なく、生徒が座れません。使用可能な座席を増やして下さい。');
 
   // 生徒のidと情報をキーとバリューで持つ（高速アクセス用）
-  const studentMap = new Map(students.map((s) => [s.id, s]));
+  const studentsMap = new Map(students.map((s) => [s.id, s]));
   // 前列優先と通常生徒を分ける
   const frontRowStudents = students.filter((student) => student.needsFrontRow);
   const regularStudents = students.filter((student) => !student.needsFrontRow);
@@ -34,12 +34,12 @@ export const generateSeatingChart = (
   // 前列優先座席のインデックスと後部座席のインデックスが入る空配列を用意
   const frontRowIndices: number[] = [];
   const backRowIndices: number[] = [];
+
   // 座席一つ一つに一次元配列のインデックスを与えて、どこからどこまでが優先座席なのか明確にする
   for (let r = 0; r < rows; r++) {
     for (let c = 0; c < cols; c++) {
       // 1次元配列を指定
       const idx = r * cols + c;
-
       // 使用不可の座席であればスキップする
       if (!enabledSet.has(idx)) continue;
 
@@ -52,6 +52,19 @@ export const generateSeatingChart = (
     }
   }
 
+  // 生徒を座席に座らせていく処理
+  const assignStudents = (
+    shuffledIndices: number[],
+    stack: Student[],
+    assignments: Map<number, string | null>,
+  ) => {
+    shuffledIndices.forEach((idx) => {
+      if (stack.length > 0) {
+        assignments.set(idx, stack.pop()!.id);
+      }
+    });
+  };
+
   // 席替え後に一番スコアの良かった席配列を入れる
   let bestAssignments = new Map<number, string | null>();
   // 無限大にしておくことで、後にスコアが存在するかどうかで使える
@@ -59,44 +72,34 @@ export const generateSeatingChart = (
 
   // 500回繰り返す
   for (let attempt = 0; attempt < ATTEMPTS; attempt++) {
-    // これからの処理で座らせていく座席のこと。
+    // これからの処理で座らせていく教室配置のこと
     const assignments = new Map<number, string | null>();
 
     // 前列の座席のインデックスのみシャッフル
-    const shuffleFrontRowIndices = shuffle(frontRowIndices);
-    // 前列の生徒のみシャッフル
-    const shuffleFrontRowStudents = shuffle(frontRowStudents);
-    // 前列へ行く生徒を指定する
-    const frontToPlace = [...shuffleFrontRowStudents];
+    const shuffledFrontRowIndices = shuffle(frontRowIndices);
+    // 前列の生徒のみシャッフルしてまとめる
+    const frontStack = shuffle(frontRowStudents);
+
     // 前列の席のインデックスを順番に教室配置に振っていく
-    shuffleFrontRowIndices.forEach((idx) => {
-      // 前列へ行く生徒がいるなら、その生徒のidを取り出して、配置する
-      if (frontToPlace.length > 0) {
-        assignments.set(idx, frontToPlace.pop()!.id);
-      }
-    });
+    assignStudents(shuffledFrontRowIndices, frontStack, assignments);
 
     // 通常の生徒と前列で座れなかった生徒で後列へ行く生徒を指定する
-    const backToPlace = [...regularStudents, ...frontToPlace];
-    // 前列の生徒がいないnullの座席のインデックスと後ろの座席のインデックスを残っている座席のインデックスとする
+    const backStack = [...regularStudents, ...frontStack];
     const remainingIndices = [
-      ...shuffleFrontRowIndices.filter((idx) => !assignments.has(idx)),
+      // 前列座席のうち、assignmentsに登録されていないインデックスを残す
+      ...shuffledFrontRowIndices.filter((idx) => !assignments.has(idx)),
       ...backRowIndices,
     ];
     // 残っている座席のインデックスをシャッフルする
-    const shuffleRemainingIndices = shuffle(remainingIndices);
+    const shuffledRemainingIndices = shuffle(remainingIndices);
     // 後ろの生徒をシャッフルする
-    const shuffleBackStudents = shuffle(backToPlace);
+    const shuffledBackStudents = shuffle(backStack);
     // シャッフルした残りの座席に一人ずつ残っている生徒のidを振っていく
-    shuffleRemainingIndices.forEach((idx) => {
-      if (shuffleBackStudents.length > 0) {
-        assignments.set(idx, shuffleBackStudents.pop()!.id);
-      }
-    });
+    assignStudents(shuffledRemainingIndices, shuffledBackStudents, assignments);
 
     // 制約の重さをそれぞれ定義する
-    const hardConflicts = countHardConflicts(assignments, studentMap, rows, cols, frontRowLimit);
-    const genderConflicts = countGenderConflicts(assignments, studentMap, rows, cols);
+    const hardConflicts = countHardConflicts(assignments, studentsMap, rows, cols, frontRowLimit);
+    const genderConflicts = countGenderConflicts(assignments, studentsMap, rows, cols);
     // 厳しい制約には1000倍の採点をする
     const score = hardConflicts * HARD_CONFLICT_WEIGHT + genderConflicts;
     // 最小のスコアより良いスコアかどうか
