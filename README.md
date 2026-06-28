@@ -18,7 +18,7 @@ https://change-seats-app.vercel.app/
 教員である友人が「席替えのアプリはたくさんあるけど、きちんと配慮すべきことを配慮して完全にランダムに席替えできるアプリがない」という要望をもとに、要件定義・設計・実装をしました。
 
 ## 🎥 デモ
-![Seat Tree Demo](/public/hi-ro.gif)
+![Seat Tree Demo](public/hi-ro.gif)
 
 
 ## ✨ 主な機能
